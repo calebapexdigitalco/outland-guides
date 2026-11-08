@@ -38,11 +38,12 @@ def validate(root=ROOT):
             continue
         if not file.is_file():
             continue
-        if file.suffix.lower() not in EXTENSIONS or any(part.startswith('.') for part in relative.parts):
+        routing_config = relative.as_posix() == '.htaccess'
+        if not routing_config and (file.suffix.lower() not in EXTENSIONS or any(part.startswith('.') for part in relative.parts)):
             errors.append(f'Unexpected public file: {relative}')
         if file.stat().st_size >= 100 * 1024 * 1024:
             errors.append(f'File exceeds GitHub normal file size limit: {relative}')
-        if file.suffix.lower() in {'.html', '.css', '.js', '.json', '.xml', '.txt', '.svg'}:
+        if routing_config or file.suffix.lower() in {'.html', '.css', '.js', '.json', '.xml', '.txt', '.svg'}:
             text = file.read_text(encoding='utf-8-sig')
             if SECRET.search(text):
                 errors.append(f'A private credential appears in public file: {relative}')
@@ -57,6 +58,8 @@ def validate(root=ROOT):
                         continue
                     target = (root / unquote(parts.path).lstrip('/')) if parts.path.startswith('/') else (file.parent / unquote(parts.path))
                     target = target.resolve()
+                    if not target.exists() and not target.suffix and target.with_suffix('.html').name in PAGES:
+                        target = target.with_suffix('.html')
                     if not target.is_relative_to(root):
                         errors.append(f'Link escapes public folder: {relative}')
                     elif not target.exists():

@@ -38,7 +38,7 @@
 /* Secondary hero actions are outlined, without a glow. */
 #hero .hero-actions a,
 .expedition-hero-actions [data-open-modal],
-main > section:first-child a[href="contact.html"] {
+main > section:first-child a[href="/contact"] {
   background:transparent !important;
   border:1px solid rgba(255,255,255,.55) !important;
   color:#FFF !important;
@@ -46,7 +46,7 @@ main > section:first-child a[href="contact.html"] {
 }
 #hero .hero-actions a:hover,
 .expedition-hero-actions [data-open-modal]:hover,
-main > section:first-child a[href="contact.html"]:hover {
+main > section:first-child a[href="/contact"]:hover {
   background:rgba(255,255,255,.08) !important;
   border-color:#FFF !important;
   box-shadow:none !important;

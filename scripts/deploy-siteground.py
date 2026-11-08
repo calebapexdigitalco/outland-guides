@@ -54,7 +54,7 @@ def main():
     if problems:
         raise ValueError('\n'.join(problems))
     files = sorted((p for p in ROOT.rglob('*') if p.is_file()),
-                   key=lambda p: (p.suffix.lower() == '.html', p.name == 'index.html', p.as_posix()))
+                   key=lambda p: (p.name == '.htaccess', p.suffix.lower() == '.html', p.name == 'index.html', p.as_posix()))
     with TemporaryDirectory(prefix='outland-deploy-') as temporary:
         temporary = Path(temporary)
         key, known = temporary / 'key', temporary / 'known_hosts'

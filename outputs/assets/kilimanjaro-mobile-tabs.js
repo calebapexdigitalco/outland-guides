@@ -19,11 +19,11 @@
   }
   function initialize() {
     const tabList = document.querySelector('[role="tablist"]');
-    if (!tabList || !/\/(kilimanjaro|safari|volcan-de-fuego)\.html$/.test(location.pathname)) return;
+    if (!tabList || !/\/(kilimanjaro|safari|volcan-de-fuego)(?:\.html)?\/?$/.test(location.pathname)) return;
     tabList.classList.add('kili-tab-list');
     tabList.closest('section')?.classList.add('kili-tab-section');
-    const safari=location.pathname.endsWith('safari.html');
-    const kilimanjaro=location.pathname.endsWith('kilimanjaro.html');
+    const safari=/\/safari(?:\.html)?\/?$/.test(location.pathname);
+    const kilimanjaro=/\/kilimanjaro(?:\.html)?\/?$/.test(location.pathname);
     if(safari||kilimanjaro){
       const hero=document.querySelector('main > section:first-child');
       if(kilimanjaro)hero?.classList.add('kilimanjaro-hero');
@@ -45,7 +45,7 @@
       const offset=(document.getElementById('site-nav')?.getBoundingClientRect().height||0)+(tabList.closest('section')?.getBoundingClientRect().height||0)+16;
       window.scrollTo({top:Math.max(0,target.getBoundingClientRect().top+window.scrollY-offset),behavior:'smooth'});
     },true);
-    if(location.pathname.endsWith('safari.html')){
+    if(/\/safari(?:\.html)?\/?$/.test(location.pathname)){
       const gear=document.querySelector('[data-panel="gear"] > div');
       if(gear&&!gear.querySelector('[data-gear-inquiry]')){
         gear.insertAdjacentHTML('beforeend','<div class="mt-8 flex flex-col items-start gap-4 rounded-xl border border-summit/30 bg-summit/10 p-6 sm:flex-row sm:items-center sm:justify-between"><div><p class="font-black text-white">Questions about what to pack?</p><p class="mt-2 text-sm leading-relaxed text-white/65">We can review what you own and help you fill the gaps.</p></div><button type="button" data-gear-inquiry data-open-modal data-expedition="Wildlife Safari" class="inline-flex shrink-0 items-center justify-center rounded-full bg-summit px-6 py-3.5 text-xs font-black uppercase tracking-wider text-white transition hover:bg-[#7A4323]">Talk through your gear</button></div>');

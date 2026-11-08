@@ -56,6 +56,16 @@ class DeploymentTests(unittest.TestCase):
     def test_rejects_batch_command_injection(self):
         with self.assertRaises(ValueError):
             deploy.quote('index.html\nrm something')
+    def test_accepts_clean_links_and_only_root_routing_config(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for name in checker.PAGES:
+                (root / name).write_text('<title>Outland</title>', encoding='utf-8')
+            (root / 'index.html').write_text('<title>Outland</title><a href="/gear-help">Gear</a><a href="/safari/">Safari</a>', encoding='utf-8')
+            (root / '.htaccess').write_text('RewriteEngine On', encoding='utf-8')
+            self.assertEqual(checker.validate(root), [])
+            (root / '.private').write_text('not public', encoding='utf-8')
+            self.assertTrue(any('Unexpected public file: .private' in error for error in checker.validate(root)))
 
 if __name__ == '__main__':
     unittest.main()

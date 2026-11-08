@@ -1,0 +1,7 @@
+# Clean public page addresses. These are internal rewrites, never redirects.
+Options -MultiViews
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(about|contact|faq|gear-help|kilimanjaro|safari|volcan-de-fuego|payments)/?$ $1.html [END]

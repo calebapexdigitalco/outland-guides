@@ -1,13 +1,13 @@
 (() => {
   const photos = [
-    { src: 'assets/fuego-gallery-night-eruption.jpeg', alt: 'Volcán de Fuego erupting beneath a star-filled sky', title: 'Fuego after dark', detail: 'The cone under a clear night sky.' },
-    { src: 'assets/fuego-gallery-daytime-fuego.jpg', alt: 'Volcán de Fuego releasing a plume above the cloud forest', title: 'Daylight plume', detail: 'A sharp cone and a changing sky.' },
-    { src: 'assets/fuego-gallery-pine-sunrise.jpg', alt: 'Volcán de Fuego framed by pine trees at sunrise', title: 'First light', detail: 'The view from Acatenango country.' },
-    { src: 'assets/fuego-gallery-camp.jpg', alt: 'Tent camp in the Acatenango forest', title: 'High camp', detail: 'A night outside, properly layered.' },
-    { src: 'assets/fuego-gallery-misty-hike.jpg', alt: 'Hiker walking through mist on volcanic terrain', title: 'In the weather', detail: 'The mountain changes by the hour.' },
-    { src: 'assets/fuego-gallery-lava-long-exposure.jpg', alt: 'Long exposure of Volcán de Fuego erupting with glowing lava trails', title: 'Living mountain', detail: 'A night eruption in motion.' },
-    { src: 'assets/fuego-gallery-trail-selfie.jpg', alt: 'Hiker with Volcán de Fuego behind him on the trail', title: 'On the trail', detail: 'A close look at the volcano country.' },
-    { src: 'assets/fuego-gallery-antigua-mural.jpg', alt: 'Hiker at an I Love Alatenango mural in Guatemala', title: 'Before the climb', detail: 'A local stop on the way into the highlands.' }
+    { src: '/assets/fuego-gallery-night-eruption.jpeg', alt: 'Volcán de Fuego erupting beneath a star-filled sky', title: 'Fuego after dark', detail: 'The cone under a clear night sky.' },
+    { src: '/assets/fuego-gallery-daytime-fuego.jpg', alt: 'Volcán de Fuego releasing a plume above the cloud forest', title: 'Daylight plume', detail: 'A sharp cone and a changing sky.' },
+    { src: '/assets/fuego-gallery-pine-sunrise.jpg', alt: 'Volcán de Fuego framed by pine trees at sunrise', title: 'First light', detail: 'The view from Acatenango country.' },
+    { src: '/assets/fuego-gallery-camp.jpg', alt: 'Tent camp in the Acatenango forest', title: 'High camp', detail: 'A night outside, properly layered.' },
+    { src: '/assets/fuego-gallery-misty-hike.jpg', alt: 'Hiker walking through mist on volcanic terrain', title: 'In the weather', detail: 'The mountain changes by the hour.' },
+    { src: '/assets/fuego-gallery-lava-long-exposure.jpg', alt: 'Long exposure of Volcán de Fuego erupting with glowing lava trails', title: 'Living mountain', detail: 'A night eruption in motion.' },
+    { src: '/assets/fuego-gallery-trail-selfie.jpg', alt: 'Hiker with Volcán de Fuego behind him on the trail', title: 'On the trail', detail: 'A close look at the volcano country.' },
+    { src: '/assets/fuego-gallery-antigua-mural.jpg', alt: 'Hiker at an I Love Alatenango mural in Guatemala', title: 'Before the climb', detail: 'A local stop on the way into the highlands.' }
   ];
 
   const init = () => {

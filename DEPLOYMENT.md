@@ -67,6 +67,10 @@ Open its Actions run and read the failed step. A missing-secret error requires t
 
 If a release needs undoing, revert that commit and publish again. Old renamed or removed files are intentionally preserved on the server until explicitly cleaned up; the workflow updates the tracked site files rather than deleting everything in `public_html`.
 
+## Page addresses
+
+Public links use extensionless addresses, such as `/gear-help` and `/kilimanjaro`. The root `.htaccess` maps these requests internally to the existing HTML files. It sends no redirects, and the HTML files remain directly accessible. Assets and navigation links use root-relative paths so they also work on these addresses. The deployment manages this routing file and uploads it last.
+
 ## Payments
 
 This deployment publishes the existing static site. The current payment page is sandbox-only and its API is not hosted. Production Stripe checkout, real booking amounts, and webhook handling are separate work; no live payment capability is enabled by this workflow.
