@@ -1,15 +1,14 @@
 {
-  "enabled": false,
-  "pricing_approved": false,
-  "public_booking_enabled": false,
+  "enabled": true,
+  "pricing_approved": true,
+  "public_booking_enabled": true,
   "deposit_percent": 50,
   "requires_date_confirmation": true,
-  "owner_emails": [],
+  "owner_emails": [
+    "info@outlandguides.com"
+  ],
   "pending_decisions": [
-    "Dedicated customer database and authentication provider",
-    "Approval of customer prices and deposit percentage",
-    "Whether dates require approval before payment",
-    "Verified sender for customer login and recovery emails"
+    "Verify sign-in email delivery to the owner mailbox"
   ],
   "customer_features": [
     "Choose an expedition, route, group size, safari add-on, and preferred dates",

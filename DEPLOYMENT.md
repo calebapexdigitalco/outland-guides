@@ -88,3 +88,16 @@ python scripts/create-payment-request.py --reference OG-2027-001 --amount 999.50
 The command above is an example only: replace its amount with the actual approved amount due now. It creates a link, not a charge, and sends no email. Share the returned link only with the guest. Optional `--email` prefills Stripe's checkout email; `--valid-days` sets link validity (default seven days, maximum 90). Create a separate request for a later balance. Keep the booking's full proposal and cancellation agreement in your normal booking records. Payment confirmation alone does not automatically arrange guide logistics or reserve dates.
 
 Manage payouts, refunds, disputes, and payment receipts in Stripe. Turn on successful-payment receipt emails in Stripe's customer email settings. Paid links stay paid after a refund; use a newly approved request if another payment is needed. Check Stripe before reissuing a request after an uncertain payment. No real card was charged during development tests.
+
+
+## Customer accounts and group bookings
+
+`/payments` is the public trip and group-size selector. `/account` is the customer and owner portal. The application uses PHP and a private SQLite database on the existing SiteGround account; no Supabase project was created. Guests sign in with an eight-digit email code (ten-minute expiry, five verification attempts, single use). Session cookies are Secure, HttpOnly, SameSite=Lax; state-changing actions require an origin check and CSRF token. SiteGround's PHP mail transport sends login codes from info@outlandguides.com. Actual inbox delivery must be checked with that mailbox before promoting the portal.
+
+Owner addresses are configured in the private `portal.json` file beside the Stripe configuration. The initial owner is info@outlandguides.com. Roles cannot be changed from browser inputs. Customers can access only their own booking records and messages; owners can view requests and confirm dates. Date confirmation is required before either deposit or full payment.
+
+Pricing is calculated in `outputs/api/booking/catalog.php`. The provided group tier applies to every traveler in the booking; the group total multiplies the tier's per-person amount by the actual traveler count. Kilimanjaro and Safari require at least two travelers. Fuego shared cabins cost $200/person for the one-night itinerary; the private two-person cabin costs $499 total. Private-cabin bookings contain exactly two travelers and one cabin charge. Deposits are 50%, rounded up to cents. Balances subtract verified payments and account for recorded refunds. Larger groups and custom arrangements can be handled through consultation.
+
+Paid Checkout Sessions return to `/account` with the booking reference. Stripe webhook processing records successful payments and cumulative refunds. One active booking checkout is reused; changing payment options expires the previous open session. Refunds are managed in Stripe, not from the portal. Messages are read when the booking list loads or is refreshed; this version does not send email notifications for new messages or date approvals.
+
+The older private payment-link flow remains available for previously issued links. The default public page uses the trip selector and account flow.
