@@ -1,5 +1,10 @@
 # Clean public page addresses. These are internal rewrites, never redirects.
 Options -MultiViews
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|css|js)$">
+        Header set Cache-Control "no-cache"
+    </FilesMatch>
+</IfModule>
 RewriteEngine On
 
 RewriteRule ^api/stripe/(config|request|checkout|status|webhook)$ api/stripe/index.php [END]

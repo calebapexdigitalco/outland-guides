@@ -76,12 +76,12 @@
   }
   function loadKilimanjaroMobileSupport(){
     if(!/\/(kilimanjaro|safari|volcan-de-fuego)(?:\.html)?\/?$/.test(location.pathname))return;
-    if(!document.querySelector('link[href="/assets/kilimanjaro-mobile-tabs.css"]')){const style=document.createElement('link');style.rel='stylesheet';style.href='/assets/kilimanjaro-mobile-tabs.css';document.head.append(style)}
-    if(!document.querySelector('script[src="/assets/kilimanjaro-mobile-tabs.js"]')){const script=document.createElement('script');script.src='/assets/kilimanjaro-mobile-tabs.js';document.body.append(script)}
+    if(!document.querySelector('link[href="/assets/kilimanjaro-mobile-tabs.css?v=20261108"]')){const style=document.createElement('link');style.rel='stylesheet';style.href='/assets/kilimanjaro-mobile-tabs.css?v=20261108';document.head.append(style)}
+    if(!document.querySelector('script[src="/assets/kilimanjaro-mobile-tabs.js?v=20261108"]')){const script=document.createElement('script');script.src='/assets/kilimanjaro-mobile-tabs.js?v=20261108';document.body.append(script)}
   }
   function loadSharedInquiry(){
-    if(document.querySelector('script[src="/assets/shared-inquiry.js"]'))return;
-    const script=document.createElement('script');script.src='/assets/shared-inquiry.js';document.body.append(script);
+    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=20261108"]'))return;
+    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=20261108';document.body.append(script);
   }
   function linkSafariCard(){
     if(!/\/(index\.html)?$/.test(location.pathname))return;
