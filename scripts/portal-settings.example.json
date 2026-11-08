@@ -1,0 +1,27 @@
+{
+  "enabled": false,
+  "pricing_approved": false,
+  "public_booking_enabled": false,
+  "deposit_percent": 50,
+  "requires_date_confirmation": true,
+  "owner_emails": [],
+  "pending_decisions": [
+    "Dedicated customer database and authentication provider",
+    "Approval of customer prices and deposit percentage",
+    "Whether dates require approval before payment",
+    "Verified sender for customer login and recovery emails"
+  ],
+  "customer_features": [
+    "Choose an expedition, route, group size, safari add-on, and preferred dates",
+    "Log in securely and see only their own bookings",
+    "Pay a deposit, full amount, or calculated remaining balance through Stripe",
+    "Review payments, refunds, and the remaining amount due",
+    "Exchange messages with the Outland team inside each booking"
+  ],
+  "team_features": [
+    "Review customer bookings and requested dates",
+    "Confirm availability before payment when configured",
+    "Review payment history and balances",
+    "Read and reply to customer messages"
+  ]
+}

@@ -9,6 +9,7 @@ RewriteEngine On
 
 RewriteRule ^api/stripe/(config|request|checkout|status|webhook)$ api/stripe/index.php [END]
 RewriteRule ^api/stripe/.*\.php$ - [R=404,END]
+RewriteRule ^api/booking/.*\.php$ - [R=404,END]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
