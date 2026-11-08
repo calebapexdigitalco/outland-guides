@@ -80,8 +80,8 @@
     if(!document.querySelector('script[src="/assets/kilimanjaro-mobile-tabs.js?v=20261108"]')){const script=document.createElement('script');script.src='/assets/kilimanjaro-mobile-tabs.js?v=20261108';document.body.append(script)}
   }
   function loadSharedInquiry(){
-    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=20261109"]'))return;
-    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=20261109';document.body.append(script);
+    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=portal-2"]'))return;
+    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=portal-2';document.body.append(script);
   }
   function linkSafariCard(){
     if(!/\/(index\.html)?$/.test(location.pathname))return;
