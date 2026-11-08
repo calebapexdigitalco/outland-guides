@@ -39,6 +39,7 @@ try {
  }
  if(!$user) answer(401,['error'=>'Please sign in to your account.']);
  if($action==='logout') {$_SESSION=[];session_regenerate_id(true);answer(200,['signed_out'=>true]);}
+ if($action==='profile') {portal_profile($db,$user,$data);answer(200,['saved'=>true]);}
  if($action==='quote') answer(200,['quote'=>quote_expedition($data)]);
  if($action==='create') {
   portal_limit($db,'booking:'.$user['id'],12,3600);$quote=quote_expedition($data);$date=$data['start_date']??'';
@@ -49,17 +50,20 @@ try {
   $q=$db->prepare('UPDATE customers SET name=? WHERE id=?');$q->execute([$name,$user['id']]);answer(200,['booking_id'=>$id]);
  }
  if($action==='list') {
-  $team=portal_admin($user);$q=$db->prepare('SELECT b.*,c.email,c.name FROM bookings b JOIN customers c ON c.id=b.owner '.($team?'':'WHERE b.owner=? ').'ORDER BY b.created DESC LIMIT 200');$q->execute($team?[]:[$user['id']]);
-  $rows=$q->fetchAll(PDO::FETCH_ASSOC);answer(200,['bookings'=>array_map(fn($b)=>portal_details($db,$b,$mode),$rows)]);
+  $rows=portal_bookings($db,$user,($data['include_removed']??false)===true);answer(200,['bookings'=>array_map(fn($b)=>portal_details($db,$b,$mode),$rows)]);
  }
  $booking=portal_booking($db,(string)($data['booking_id']??''),$user);
+ if($action==='remove'||$action==='restore') {
+  $db->exec('BEGIN IMMEDIATE');$booking=portal_booking($db,$booking['id'],$user);portal_remove_booking($db,$booking,$user,$action==='restore');$db->exec('COMMIT');answer(200,['saved'=>true]);
+ }
+ if($booking['removed_at'] && in_array($action,['checkout','confirm'],true)) throw new InvalidArgumentException('Restore this trip before confirming dates or making a payment.');
  if($action==='message') {
   portal_limit($db,'message:'.$user['id'],15,60);$body=trim($data['body']??'');if($body===''||mb_strlen($body)>4000) throw new InvalidArgumentException('Write a message of up to 4,000 characters.');
   $q=$db->prepare('INSERT INTO messages(id,booking,sender,team,body,created) VALUES (?,?,?,?,?,?)');$q->execute([bin2hex(random_bytes(16)),$booking['id'],$user['id'],portal_admin($user)?1:0,$body,time()]);answer(200,['sent'=>true]);
  }
  if($action==='confirm') {
   if(!portal_admin($user)) answer(403,['error'=>'Owner access required.']);
-  $q=$db->prepare('UPDATE bookings SET status="confirmed" WHERE id=? AND status="requested"');$q->execute([$booking['id']]);answer(200,['confirmed'=>true]);
+  $q=$db->prepare('UPDATE bookings SET status="confirmed" WHERE id=? AND status="requested" AND removed_at=0');$q->execute([$booking['id']]);if(!$q->rowCount()) throw new InvalidArgumentException('This request is no longer awaiting confirmation.');answer(200,['confirmed'=>true]);
  }
  if($action==='verify-payment') {
   $q=$db->prepare('SELECT * FROM requests WHERE reference=? AND mode=? AND session_id=?');$q->execute([$booking['reference'],$mode,$data['session_id']??'']);$r=$q->fetch(PDO::FETCH_ASSOC);
@@ -68,6 +72,7 @@ try {
  if($action==='checkout') {
   if(!payments_enabled($config)) throw new InvalidArgumentException('Payments are not currently available.');
   $db->exec('BEGIN IMMEDIATE');$booking=portal_booking($db,$booking['id'],$user);
+  if($booking['removed_at']) throw new InvalidArgumentException('Restore this trip before making a payment.');
   if($booking['status']!=='confirmed') throw new InvalidArgumentException('Your requested dates must be confirmed by Outland before payment.');
   $details=portal_details($db,$booking,$mode);$received=array_sum(array_column($details['payments'],'amount'));$refunded=array_sum(array_column($details['payments'],'refunded'));
   if($refunded>0) throw new InvalidArgumentException('This booking has a refund. Please contact Outland to review it before making another payment.');

@@ -6,6 +6,10 @@ booking_check($quote['total_amount']===399800 && $quote['deposit_amount']===1999
 $larger=quote_expedition(['option_id'=>'machame-6','travelers'=>6]);
 booking_check(quote_expedition(['option_id'=>'fuego-private','travelers'=>2])['total_amount']===49900,'Private Fuego cabin costs $499 for both travelers together.');
 booking_check(quote_expedition(['option_id'=>'fuego-shared','travelers'=>5])['total_amount']===100000,'Shared Fuego cabin is $200 per traveler.');
+booking_check(quote_expedition(['option_id'=>'fuego-shared','travelers'=>1])['total_amount']===20000,'One traveler can book a place in a shared cabin.');
+foreach ([['fuego-shared',6],['fuego-shared',15],['fuego-shared',16],['fuego-private',1],['fuego-private',3],['fuego-private',16]] as [$option,$count]) {
+    try { quote_expedition(['option_id'=>$option,'travelers'=>$count]); throw new LogicException('Cabin capacity was not enforced.'); } catch(InvalidArgumentException $expected) {}
+}
 foreach ([2=>[1999,2199,2049,2249],3=>[1979,2179,2029,2229],4=>[1949,2149,1999,2199],5=>[1799,1999,1849,2049],6=>[1699,1899,1749,1949],9=>[1699,1899,1749,1949]] as $count=>$prices) {
  foreach(array_keys(array_slice(expedition_catalog(),0,4)) as $i=>$option) booking_check(quote_expedition(['option_id'=>$option,'travelers'=>$count])['total_amount']===$prices[$i]*100*$count,'Every group tier matches the supplied table.');
 }

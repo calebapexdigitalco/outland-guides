@@ -8,8 +8,8 @@ function expedition_catalog(): array {
         'machame-7' => ['name'=>'Mount Kilimanjaro','option'=>'Machame 7-Day','days'=>7,'kind'=>'mountain','tiers'=>[2=>219900,3=>217900,4=>214900,5=>199900,6=>189900]],
         'lemosho-6' => ['name'=>'Mount Kilimanjaro','option'=>'Lemosho 6-Day','days'=>6,'kind'=>'mountain','tiers'=>[2=>204900,3=>202900,4=>199900,5=>184900,6=>174900]],
         'lemosho-7' => ['name'=>'Mount Kilimanjaro','option'=>'Lemosho 7-Day','days'=>7,'kind'=>'mountain','tiers'=>[2=>224900,3=>222900,4=>219900,5=>204900,6=>194900]],
-        'fuego-shared' => ['name'=>'Volcán de Fuego','option'=>'Shared five-person cabin','days'=>2,'kind'=>'volcano','tiers'=>[1=>20000]],
-        'fuego-private' => ['name'=>'Volcán de Fuego','option'=>'Private two-person cabin','days'=>2,'kind'=>'private-cabin','tiers'=>[1=>49900]],
+        'fuego-shared' => ['name'=>'Volcán de Fuego','option'=>'Shared five-person cabin','days'=>2,'kind'=>'volcano','min_travelers'=>1,'max_travelers'=>5,'tiers'=>[1=>20000]],
+        'fuego-private' => ['name'=>'Volcán de Fuego','option'=>'Private two-person cabin','days'=>2,'kind'=>'private-cabin','min_travelers'=>2,'max_travelers'=>2,'tiers'=>[1=>49900]],
         'safari-3' => ['name'=>'Wildlife Safari','option'=>'3-Day Ngorongoro Safari','days'=>3,'kind'=>'safari','tiers'=>[2=>134900,3=>119900,5=>109900]],
         'safari-4' => ['name'=>'Wildlife Safari','option'=>'4-Day Serengeti Safari','days'=>4,'kind'=>'safari','tiers'=>[2=>209900,3=>199900,5=>179900]],
     ];
@@ -27,6 +27,8 @@ function quote_expedition(array $input): array {
     $count = $input['travelers'] ?? null;
     if (!is_int($count) || $count < 1 || $count > 20) throw new InvalidArgumentException('Choose 1–20 travelers for an online quote. Other group sizes need a personal consultation.');
     $trip = $catalog[$id];
+    if (in_array($trip['kind'],['volcano','private-cabin'],true) && $count>15) throw new InvalidArgumentException('Volcán de Fuego trips are limited to 15 travelers.');
+    if ($id==='fuego-shared' && $count>5) throw new InvalidArgumentException('A shared five-person cabin booking must have 1–5 travelers. Contact us to arrange multiple cabins.');
     if ($trip['kind']==='mountain' || $trip['kind']==='safari') { if ($count<2) throw new InvalidArgumentException('Kilimanjaro and Safari bookings require at least two travelers.'); }
     if ($trip['kind']==='private-cabin') { if($count!==2) throw new InvalidArgumentException('A private cabin booking covers exactly two travelers.'); }
     $lines = [['label'=>$trip['name'].' · '.$trip['option'],'unit_amount'=>group_price($trip['tiers'],$count),'quantity'=>$trip['kind']==='private-cabin'?1:$count]];

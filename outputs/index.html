@@ -137,7 +137,7 @@
     const nav = document.getElementById('site-nav'); window.addEventListener('scroll', () => nav.classList.toggle('nav-scrolled', window.scrollY > 20), { passive: true });
     document.getElementById('inquiry-form').addEventListener('submit', (event) => { event.preventDefault(); const data = new FormData(event.currentTarget); const subject = encodeURIComponent(`Outland Guides inquiry: ${data.get('expedition')}`); const body = encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\nExpedition: ${data.get('expedition')}\nTravel window: ${data.get('window')}\nExperience: ${data.get('experience')}\n\nNotes / Questions:\n${data.get('notes') || 'None provided'}`); window.location.href = `mailto:info@outlandguides.com?subject=${subject}&body=${body}`; });
   </script>
-<script src="/assets/offering-scope.js?v=portal-2"></script></body>
+<script src="/assets/offering-scope.js?v=portal-3"></script></body>
 </html>
 
 

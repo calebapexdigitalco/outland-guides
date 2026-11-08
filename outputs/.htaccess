@@ -6,7 +6,7 @@ Options -MultiViews
     </FilesMatch>
 </IfModule>
 RewriteEngine On
-RewriteRule ^api/booking/(session|send-code|verify-code|logout|quote|create|list|message|confirm|verify-payment|checkout)$ api/booking/index.php [END]
+RewriteRule ^api/booking/(session|send-code|verify-code|logout|profile|quote|create|list|remove|restore|message|confirm|verify-payment|checkout)$ api/booking/index.php [END]
 
 RewriteRule ^api/stripe/(config|request|checkout|status|webhook)$ api/stripe/index.php [END]
 RewriteRule ^api/stripe/.*\.php$ - [R=404,END]

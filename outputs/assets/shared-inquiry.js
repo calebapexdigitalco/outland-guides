@@ -79,10 +79,6 @@
     modal.querySelector('input')?.focus({preventScroll:true});
   }
   function initialize() {
-    const mobileMenu=document.querySelector('#mobile-menu > div');
-    if(mobileMenu&&!mobileMenu.querySelector('a[href="/account"]'))mobileMenu.insertAdjacentHTML('beforeend','<a href="/account" class="font-black uppercase text-summit">My Trips / Sign In</a>');
-    const desktopLinks=document.querySelector('#site-nav .lg\\:flex');
-    if(desktopLinks&&!desktopLinks.querySelector('a[href="/account"]'))desktopLinks.insertAdjacentHTML('beforeend','<a href="/account" aria-label="My trips and sign in">My Trips</a>');
     document.querySelectorAll('#inquiry-modal').forEach(el => el.remove());
     document.body.insertAdjacentHTML('beforeend', markup);
     modal = document.getElementById('inquiry-modal');

@@ -11,6 +11,8 @@ function portal_db(): PDO {
       CREATE TABLE IF NOT EXISTS messages(id TEXT PRIMARY KEY,booking TEXT NOT NULL,sender TEXT NOT NULL,team INTEGER NOT NULL,body TEXT NOT NULL,created INTEGER NOT NULL);');
     $columns=$db->query('PRAGMA table_info(requests)')->fetchAll(PDO::FETCH_COLUMN,1);
     if(!in_array('refunded',$columns,true)) $db->exec('ALTER TABLE requests ADD COLUMN refunded INTEGER NOT NULL DEFAULT 0');
+    $columns=$db->query('PRAGMA table_info(bookings)')->fetchAll(PDO::FETCH_COLUMN,1);
+    if(!in_array('removed_at',$columns,true)) $db->exec('ALTER TABLE bookings ADD COLUMN removed_at INTEGER NOT NULL DEFAULT 0');
     return $db;
 }
 function portal_key(): string {
@@ -33,6 +35,28 @@ function portal_booking(PDO $db,string $id,array $user): array {
     $q=$db->prepare('SELECT * FROM bookings WHERE id=?');$q->execute([$id]);$b=$q->fetch(PDO::FETCH_ASSOC);
     if(!$b || ($b['owner']!==$user['id']&&!portal_admin($user))) throw new InvalidArgumentException('Booking not found.');
     return $b;
+}
+function portal_profile(PDO $db,array $user,array $input): void {
+    $name=$input['name']??null;
+    if(!is_string($name)||mb_strlen(trim($name))<2||mb_strlen(trim($name))>100) throw new InvalidArgumentException('Enter a name between 2 and 100 characters.');
+    $q=$db->prepare('UPDATE customers SET name=? WHERE id=?');$q->execute([trim($name),$user['id']]);
+}
+function portal_bookings(PDO $db,array $user,bool $includeRemoved): array {
+    $team=portal_admin($user);$conditions=[];$values=[];
+    if(!$team){$conditions[]='b.owner=?';$values[]=$user['id'];}
+    if(!$includeRemoved)$conditions[]='b.removed_at=0';
+    $q=$db->prepare('SELECT b.*,c.email,c.name FROM bookings b JOIN customers c ON c.id=b.owner '.($conditions?'WHERE '.implode(' AND ',$conditions).' ':'').'ORDER BY b.created DESC,b.id DESC LIMIT 200');
+    $q->execute($values);return $q->fetchAll(PDO::FETCH_ASSOC);
+}
+function portal_remove_booking(PDO $db,array $booking,array $user,bool $restore=false): void {
+    // Removing a trip never deletes payment records or cancels a confirmed expedition.
+    if($booking['owner']!==$user['id']) throw new InvalidArgumentException('Only the booking customer can remove or restore this trip.');
+    if($restore){
+        $q=$db->prepare('UPDATE bookings SET removed_at=0,status=CASE WHEN status="withdrawn" THEN "requested" ELSE status END WHERE id=?');$q->execute([$booking['id']]);return;
+    }
+    $q=$db->prepare('SELECT COUNT(*) FROM requests WHERE reference=? AND paid=1');$q->execute([$booking['reference']]);$hasPayment=(int)$q->fetchColumn()>0;$q->closeCursor();
+    $status=$booking['status']==='requested'&&!$hasPayment?'withdrawn':$booking['status'];
+    $q=$db->prepare('UPDATE bookings SET removed_at=?,status=? WHERE id=?');$q->execute([time(),$status,$booking['id']]);
 }
 function portal_details(PDO $db,array $b,string $mode): array {
     $b['quote']=json_decode($b['quote'],true);
