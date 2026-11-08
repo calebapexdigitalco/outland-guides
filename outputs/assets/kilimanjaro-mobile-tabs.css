@@ -1,0 +1,28 @@
+/* Shared expedition navigation: all choices stay discoverable on a phone. */
+.planning-side a:not(.active):hover { background:transparent; border-color:rgba(255,255,255,.14); color:rgba(255,255,255,.7); box-shadow:none; }
+.planning-side a:focus-visible { outline:2px solid #D68456; outline-offset:3px; }
+.expedition-hero-actions > button { border-radius:9999px; padding:.75rem 1.5rem; font-size:.75rem; font-weight:900; line-height:1rem; letter-spacing:.12em; text-transform:uppercase; }
+@media (max-width: 639px) {
+  .expedition-hero-actions { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem !important; }
+  .expedition-hero-actions > button { min-width:0; min-height:3rem; padding:.75rem .5rem !important; font-size:.75rem !important; letter-spacing:.12em !important; line-height:1rem; }
+  .kilimanjaro-hero { padding-top:18rem !important; }
+  .kilimanjaro-hero h1 { font-size:clamp(2rem,11vw,3rem) !important; }
+  .kilimanjaro-hero > img { top:5rem !important; bottom:auto !important; height:24rem !important; object-position:50% 0%; }
+  .kilimanjaro-hero > img + div { background:linear-gradient(180deg,rgba(26,26,26,.1) 0%,rgba(26,26,26,.12) 20%,rgba(26,26,26,.75) 42%,#1A1A1A 65%) !important; }
+  .kili-tab-section { top: 4.4rem !important; }
+  .kili-tab-list { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .38rem; overflow: visible !important; padding: .55rem .8rem !important; }
+  .kili-tab-list .tab { min-width: 0; white-space: normal !important; border: 1px solid rgba(255,255,255,.14); border-radius: .5rem; padding: .68rem .4rem !important; font-size: .58rem; line-height: 1.12; letter-spacing: .095em; }
+  .kili-tab-list .tab[aria-selected="true"] { border-color: rgba(165,89,46,.85); }
+  .kili-tab-panel { scroll-margin-top: 10.4rem; }
+  [data-panel] .route-side { position:static !important; display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:.55rem !important; overflow:visible !important; border:0; padding:0; width:100%; min-width:0; }
+  [data-panel] .route-side a { display:flex; align-items:center; justify-content:center; min-width:0; min-height:2.9rem; white-space:normal !important; overflow-wrap:break-word; padding:.7rem .55rem !important; border:1px solid rgba(255,255,255,.16); border-radius:.65rem; font-size:.64rem !important; line-height:1.35; letter-spacing:.055em; text-align:center; }
+  /* The elevation stages are intentionally wider than a phone so every label stays readable. */
+  .kili-profile + .profile-stages { display: grid !important; grid-template-columns: none !important; grid-auto-flow: column; grid-auto-columns: minmax(8.2rem, 1fr); overflow-x: auto; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; padding-bottom: .5rem; }
+  .kili-profile + .profile-stages .profile-stage { min-width: 8.2rem; padding: .78rem .62rem !important; }
+  .kili-profile + .profile-stages .profile-stage span { font-size: .58rem !important; }
+  .kili-profile + .profile-stages .profile-stage b { font-size: .78rem !important; }
+  .kili-profile + .profile-stages .profile-stage small { font-size: .7rem !important; line-height: 1.22; }
+  .kili-profile ~ .profile-caption { padding: .9rem .95rem !important; font-size: .78rem !important; line-height: 1.5 !important; }
+  .route-day { grid-template-columns: 1fr !important; gap: .42rem !important; padding-left: .8rem !important; }
+  .route-day p { font-size: .86rem !important; line-height: 1.56 !important; }
+}

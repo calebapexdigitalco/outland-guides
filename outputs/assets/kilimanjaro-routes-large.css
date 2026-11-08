@@ -1,0 +1,9 @@
+/* Full-width elevation-profile treatment. */
+.route-card > .route-copy + div { border-top: 1px solid rgba(255,255,255,.1); }
+.elevation-profile svg { display:block; width:100%; height:auto; min-height:20rem; }
+.profile-stages{display:grid;grid-template-columns:repeat(var(--stage-count, 6),minmax(0,1fr));border-top:1px solid rgba(255,255,255,.16);background:#5f91a9}.profile-stage{min-width:0;border-right:1px solid rgba(255,255,255,.24);padding:.7rem .55rem;color:#fff}.profile-stage:last-child{border-right:0}.profile-stage span{display:block;font-size:.55rem;font-weight:900;letter-spacing:.09em;opacity:.75;text-transform:uppercase}.profile-stage b{display:block;margin-top:.35rem;font-size:.72rem;line-height:1.15}.profile-stage small{display:block;margin-top:.2rem;font-size:.67rem;font-weight:800;opacity:.8}.profile-stage.is-summit{background:#e94b16}.profile-stage.is-descent{background:#b8d0df;color:#173042}
+@media (min-width: 1024px) {
+  .route-card { display: block; }
+  .elevation-profile img { min-height: 34rem; object-fit: cover; object-position: center; }
+.elevation-profile svg { min-height:34rem; }
+}

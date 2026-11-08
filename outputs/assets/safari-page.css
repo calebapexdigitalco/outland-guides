@@ -1,0 +1,3 @@
+/* Safari uses the expedition design system with full-width text modules. */
+@media (min-width:1024px){.safari-page .route-card{display:block}.safari-page .route-card .route-copy{max-width:none}}
+.wildlife-visual{aspect-ratio:1/1.04;background-image:url('tanzania-wildlife-triptych.png');background-size:300% 100%;background-repeat:no-repeat;transition:transform .35s ease,filter .35s ease}.wildlife-visual:hover{filter:saturate(1.08);transform:scale(1.025)}.wildlife-visual.elephant{background-position:0 center}.wildlife-visual.lion{background-position:50% center}.wildlife-visual.giraffe{background-position:100% center}

@@ -1,0 +1,206 @@
+/* Shared Outland Guides navigation — loaded by every site page. */
+/* Filled actions are calm by default; glow is reserved for primary next steps. */
+:is(main a.inline-flex, main a.rounded-full, .expedition-card a, [data-open-modal], [data-explore-trip], [data-custom-inquiry], .mobile-book-cta, form button[type="submit"]) {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  padding:.85rem 1.35rem;
+  border:1px solid #A5592E !important;
+  border-radius:9999px;
+  background:#A5592E !important;
+  color:#FFF !important;
+  box-shadow:none !important;
+  font-weight:900;
+  text-align:center;
+  text-decoration:none;
+  transition:background-color .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+:is(main a.inline-flex, main a.rounded-full, .expedition-card a, [data-open-modal], [data-explore-trip], [data-custom-inquiry], .mobile-book-cta, form button[type="submit"]):hover {
+  background:#B96535 !important;
+  border-color:#B96535 !important;
+  color:#FFF !important;
+  box-shadow:none !important;
+}
+:is(main a.inline-flex, main a.rounded-full, .expedition-card a, [data-open-modal], [data-explore-trip], [data-custom-inquiry], .mobile-book-cta, form button[type="submit"]):focus-visible {
+  outline:2px solid #FDFDFD;
+  outline-offset:4px;
+}
+
+/* Primary actions at the end of content sections, plus the main hero action. */
+:is(main > section:not(:first-child) a.inline-flex, main > section:not(:first-child) a.rounded-full, main > section:not(:first-child) [data-open-modal], [data-custom-inquiry], form button[type="submit"], #hero .hero-actions button, .expedition-hero-actions [data-explore-trip], main > section:first-child a[href="#trip-tabs"]) {
+  box-shadow:0 8px 28px rgba(165,89,46,.32),0 0 16px rgba(165,89,46,.18) !important;
+}
+:is(main > section:not(:first-child) a.inline-flex, main > section:not(:first-child) a.rounded-full, main > section:not(:first-child) [data-open-modal], [data-custom-inquiry], form button[type="submit"], #hero .hero-actions button, .expedition-hero-actions [data-explore-trip], main > section:first-child a[href="#trip-tabs"]):hover {
+  box-shadow:0 10px 32px rgba(165,89,46,.46),0 0 22px rgba(165,89,46,.3) !important;
+}
+
+/* Secondary hero actions are outlined, without a glow. */
+#hero .hero-actions a,
+.expedition-hero-actions [data-open-modal],
+main > section:first-child a[href="contact.html"] {
+  background:transparent !important;
+  border:1px solid rgba(255,255,255,.55) !important;
+  color:#FFF !important;
+  box-shadow:none !important;
+}
+#hero .hero-actions a:hover,
+.expedition-hero-actions [data-open-modal]:hover,
+main > section:first-child a[href="contact.html"]:hover {
+  background:rgba(255,255,255,.08) !important;
+  border-color:#FFF !important;
+  box-shadow:none !important;
+}
+
+/* Expedition cards use compact text links rather than pill buttons. */
+#expeditions .expedition-card :is(a,button) {
+  display:inline-flex;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:#A5592E !important;
+  box-shadow:none !important;
+  text-align:left;
+}
+#expeditions .expedition-card :is(a,button):hover {
+  background:transparent !important;
+  color:#D68456 !important;
+  box-shadow:none !important;
+}
+#site-nav {
+  transition: background-color .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+
+#site-nav > div:first-child {
+  height: 6rem !important;
+  transition: height .28s ease;
+}
+
+#site-nav > div:first-child > a img {
+  height: 4rem !important;
+  transition: height .28s ease, transform .28s ease;
+}
+
+#site-nav .lg\:flex {
+  gap: 2rem !important;
+  font-size: .82rem !important;
+  letter-spacing: .13em !important;
+  transition: font-size .28s ease, gap .28s ease;
+}
+
+#site-nav .lg\:flex > a,
+#site-nav .lg\:flex .expedition-trigger > a {
+  color: #1A1A1A !important;
+  transition: color .2s ease, text-shadow .2s ease;
+}
+
+#site-nav .lg\:flex > a:hover,
+#site-nav .lg\:flex > a:focus-visible,
+#site-nav .lg\:flex .expedition-trigger > a:hover,
+#site-nav .lg\:flex .expedition-trigger > a:focus-visible {
+  color: #A5592E !important;
+  text-shadow: 0 0 12px rgba(165, 89, 46, .55);
+}
+
+#site-nav .expedition-menu a {
+  color: #FDFDFD !important;
+  transition: color .18s ease, text-shadow .18s ease;
+}
+
+#site-nav .expedition-menu a:hover,
+#site-nav .expedition-menu a:focus-visible {
+  color: #A5592E !important;
+  text-shadow: 0 0 14px rgba(165, 89, 46, .85);
+}
+
+#site-nav.nav-scrolled > div:first-child {
+  height: 4.45rem !important;
+}
+
+#site-nav.nav-scrolled > div:first-child > a img {
+  height: 2.6rem !important;
+}
+
+#site-nav.nav-scrolled .lg\:flex {
+  gap: 1.5rem !important;
+  font-size: .73rem !important;
+}
+
+@media (max-width: 1023px) {
+  #site-nav > div:first-child { height: 5.15rem !important; }
+  #site-nav > div:first-child > a img { height: 3.25rem !important; }
+  #site-nav.nav-scrolled > div:first-child { height: 4.4rem !important; }
+  #site-nav.nav-scrolled > div:first-child > a img { height: 2.6rem !important; }
+}
+
+/* Keep the booking action and full expedition choice usable on compact screens. */
+.mobile-book-cta {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.35rem;
+  white-space: nowrap;
+  border-radius: 9999px;
+  background: #A5592E;
+  padding: .65rem .88rem;
+  color: #fff !important;
+  font-size: .61rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(165, 89, 46, .25);
+}
+
+.mobile-expedition-group { display: grid; gap: .3rem; }
+.mobile-expedition-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: .55rem;
+  padding: .7rem .75rem;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-transform: uppercase;
+}
+.mobile-expedition-toggle:hover,
+.mobile-expedition-toggle:focus-visible { color: #A5592E; background: rgba(165,89,46,.08); outline: none; }
+.mobile-expedition-links { display: grid; gap: .18rem; margin-left: .6rem; padding: .25rem 0 .35rem .8rem; border-left: 1px solid rgba(165,89,46,.42); }
+.mobile-expedition-links a { display: block; padding: .52rem .25rem; color: inherit; font-size: .84em; }
+.mobile-expedition-links a:hover,
+.mobile-expedition-links a:focus-visible { color: #A5592E; outline: none; }
+
+@media (max-width: 639px) {
+  #site-nav > div:first-child { padding-left: .8rem !important; padding-right: .8rem !important; gap: .45rem; }
+  #site-nav > div:first-child > a:first-child img { height: 2.55rem !important; max-width: 8.9rem; object-fit: contain; object-position: left center; }
+  #site-nav .mobile-book-cta { padding-left: .68rem; padding-right: .68rem; font-size: .56rem; letter-spacing: .065em; }
+  #site-nav #menu-toggle { flex: 0 0 2.5rem; width: 2.5rem; height: 2.5rem; }
+}
+
+@media (max-width: 370px) {
+  #site-nav .mobile-book-cta { max-width: 7.8rem; overflow: hidden; text-overflow: ellipsis; }
+}
+
+/* Keep the two header actions together regardless of each page's original markup. */
+#site-nav .nav-actions { display:flex; align-items:center; gap:.7rem; flex-shrink:0; margin-left:auto; }
+#site-nav > div:first-child { gap:1rem; }
+#site-nav .lg\:flex { margin-left:auto; margin-right:auto; }
+#site-nav #mobile-menu a { text-transform:uppercase; }
+#custom-expedition-cta { max-width:64rem; margin-left:auto; margin-right:auto; }
+#custom-expedition-cta > div { justify-content:center; gap:2rem; }
+#custom-expedition-cta > div > div { max-width:35rem; }
+#inquiry-modal { z-index:100; color:#FDFDFD; }
+#inquiry-modal > div:last-child { background:#111925; }
+#inquiry-modal input, #inquiry-modal textarea { color:#fff; }
+@media (max-width:639px) {
+  #site-nav .nav-actions { gap:.55rem; }
+  #custom-expedition-cta > div { align-items:flex-start; gap:1.25rem; }
+  #hero .hero-copy h1 { font-size:clamp(3.25rem,14vw,5.5rem); line-height:.94; letter-spacing:-.055em; }
+  #hero .hero-subtitle { font-size:.94rem; line-height:1.6; padding:.65rem .75rem; }
+  #hero .hero-stats { text-align:center; gap:.7rem; }
+  #hero .hero-stats > div { min-width:0; }
+  #hero .hero-stats > div > p:last-child { font-size:.55rem; line-height:1.5; letter-spacing:.1em; }
+}
