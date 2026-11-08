@@ -40,7 +40,8 @@ try {
     if (strlen($raw) > 4096) reply(413, ['error' => 'Request too large.']);
     $bucket = hash_hmac('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . ':' . intdiv(time(), 60), $config['webhook_secret']);
     $query = $db->prepare('INSERT INTO rate_limits(bucket,count) VALUES (?,1) ON CONFLICT(bucket) DO UPDATE SET count = count + 1 RETURNING count');
-    $query->execute([$bucket]); if ($query->fetchColumn() > 60) reply(429, ['error' => 'Please wait a minute before trying again.']);
+    $query->execute([$bucket]); $attempts = $query->fetchColumn(); $query->closeCursor();
+    if ($attempts > 60) reply(429, ['error' => 'Please wait a minute before trying again.']);
     if (random_int(1,100) === 1) $db->exec('DELETE FROM rate_limits WHERE rowid < (SELECT MAX(rowid) - 10000 FROM rate_limits)');
     $data = json_decode($raw, true, 8, JSON_THROW_ON_ERROR);
     $request = find_payment($db, $data['token'] ?? '', $config['mode']);
