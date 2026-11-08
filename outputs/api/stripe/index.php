@@ -31,7 +31,7 @@ try {
         if($newEvent && ($event['type']??'')==='charge.refunded') {
             $charge=$event['data']['object']??[];
             if(is_int($charge['amount_refunded']??null) && $charge['amount_refunded']>=0) {
-                $update=$db->prepare('UPDATE requests SET refunded=? WHERE payment_intent=? AND mode=? AND amount>=? AND paid=1');
+                $update=$db->prepare('UPDATE requests SET refunded=MAX(refunded,?) WHERE payment_intent=? AND mode=? AND amount>=? AND paid=1');
                 $update->execute([$charge['amount_refunded'],$charge['payment_intent']??'', $config['mode'],$charge['amount_refunded']]);
             }
         }

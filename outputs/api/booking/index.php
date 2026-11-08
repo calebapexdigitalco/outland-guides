@@ -70,6 +70,7 @@ try {
   $db->exec('BEGIN IMMEDIATE');$booking=portal_booking($db,$booking['id'],$user);
   if($booking['status']!=='confirmed') throw new InvalidArgumentException('Your requested dates must be confirmed by Outland before payment.');
   $details=portal_details($db,$booking,$mode);$received=array_sum(array_column($details['payments'],'amount'));$refunded=array_sum(array_column($details['payments'],'refunded'));
+  if($refunded>0) throw new InvalidArgumentException('This booking has a refund. Please contact Outland to review it before making another payment.');
   $type=$data['payment_type']??'deposit';$amount=booking_payment_amount($details['quote']['total_amount'],$received,$refunded,$type);
   $token=$booking['payment_token'];
   if($token){
