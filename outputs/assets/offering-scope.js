@@ -80,12 +80,12 @@
     if(!document.querySelector('script[src="/assets/kilimanjaro-mobile-tabs.js?v=20261108"]')){const script=document.createElement('script');script.src='/assets/kilimanjaro-mobile-tabs.js?v=20261108';document.body.append(script)}
   }
   function loadSharedInquiry(){
-    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=portal-3"]'))return;
-    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=portal-3';document.body.append(script);
+    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=portal-4"]'))return;
+    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=portal-4';document.body.append(script);
   }
   function loadAccountNavigation(){
-    const style=document.createElement('link');style.rel='stylesheet';style.href='/assets/account-navigation.css?v=portal-3';document.head.append(style);
-    const script=document.createElement('script');script.src='/assets/account-navigation.js?v=portal-3';document.body.append(script);
+    const style=document.createElement('link');style.rel='stylesheet';style.href='/assets/account-navigation.css?v=portal-4';document.head.append(style);
+    const script=document.createElement('script');script.src='/assets/account-navigation.js?v=portal-4';document.body.append(script);
   }
   function linkSafariCard(){
     if(!/\/(index\.html)?$/.test(location.pathname))return;

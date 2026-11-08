@@ -61,7 +61,7 @@
   });
   document.addEventListener('click', event => { if (!wrapper.contains(event.target)) close(); });
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && !dropdown.hidden) close(true); });
-  wrapper.addEventListener('focusout', () => queueMicrotask(() => { if (!wrapper.contains(document.activeElement)) close(); }));
+  wrapper.addEventListener('focusout', event => { if (event.relatedTarget && !wrapper.contains(event.relatedTarget)) close(); });
   signout.addEventListener('click', async () => {
     signout.disabled = true;
     const notice = wrapper.querySelector('.account-nav-status');
