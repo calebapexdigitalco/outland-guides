@@ -41,6 +41,12 @@ def quote(value):
         raise ValueError('Newlines are not allowed in deployment paths.')
     return '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
 
+def public_directories(files, root):
+    directories = {parent.relative_to(root).as_posix()
+                   for file in files for parent in file.parents
+                   if parent != root and parent.is_relative_to(root)}
+    return sorted(directories, key=lambda path: (path.count('/'), path))
+
 def main():
     settings = {name: os.environ.get(name, '') for name in REQUIRED}
     host, user, port, destination = validate_settings(settings)
@@ -66,8 +72,7 @@ def main():
         marker.write_text(json.dumps({'commit': release, 'deployed_at': datetime.now(timezone.utc).isoformat(),
                                      'files': len(files)}), encoding='utf-8')
         commands = ['cd ' + quote(destination)]
-        directories = sorted({p.parent.relative_to(ROOT).as_posix() for p in files if p.parent != ROOT},
-                             key=lambda p: (p.count('/'), p))
+        directories = public_directories(files, ROOT)
         for directory in directories:
             # A leading minus only ignores "already exists"; put/rename errors still abort.
             commands.append('-mkdir ' + quote(directory))

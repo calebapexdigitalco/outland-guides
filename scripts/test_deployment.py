@@ -76,6 +76,10 @@ class DeploymentTests(unittest.TestCase):
             errors = checker.validate(root)
             self.assertTrue(any('private credential' in error for error in errors))
             self.assertTrue(any('Unexpected public file: api' in error for error in errors))
+    def test_nested_deployment_creates_parents_before_children(self):
+        root = Path('/site/outputs')
+        files = [root / 'api/stripe/index.php', root / 'assets/logo.png', root / 'index.html']
+        self.assertEqual(deploy.public_directories(files, root), ['api','assets','api/stripe'])
 
 if __name__ == '__main__':
     unittest.main()
