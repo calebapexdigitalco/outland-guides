@@ -4,6 +4,11 @@ function booking_check(bool $value,string $message): void { if(!$value) throw ne
 $quote=quote_expedition(['option_id'=>'machame-6','travelers'=>2,'amount'=>1]);
 booking_check($quote['total_amount']===399800 && $quote['deposit_amount']===199900,'Use the entire group price and ignore browser-supplied amounts.');
 $larger=quote_expedition(['option_id'=>'machame-6','travelers'=>6]);
+booking_check(quote_expedition(['option_id'=>'fuego-private','travelers'=>2])['total_amount']===49900,'Private Fuego cabin costs $499 for both travelers together.');
+booking_check(quote_expedition(['option_id'=>'fuego-shared','travelers'=>5])['total_amount']===100000,'Shared Fuego cabin is $200 per traveler.');
+foreach ([2=>[1999,2199,2049,2249],3=>[1979,2179,2029,2229],4=>[1949,2149,1999,2199],5=>[1799,1999,1849,2049],6=>[1699,1899,1749,1949],9=>[1699,1899,1749,1949]] as $count=>$prices) {
+ foreach(array_keys(array_slice(expedition_catalog(),0,4)) as $i=>$option) booking_check(quote_expedition(['option_id'=>$option,'travelers'=>$count])['total_amount']===$prices[$i]*100*$count,'Every group tier matches the supplied table.');
+}
 booking_check($larger['total_amount']===1019400,'Group discount applies to the whole group, never to one traveler pretending to book six.');
 $package=quote_expedition(['option_id'=>'lemosho-7','travelers'=>3,'safari_addon'=>'safari-4','lodging_nights'=>2]);
 booking_check($package['total_amount']===(222900+199900+5000)*3,'Safari and lodging prices match the supplied per-person tiers.');

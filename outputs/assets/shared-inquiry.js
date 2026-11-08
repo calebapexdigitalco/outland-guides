@@ -116,7 +116,7 @@
     document.querySelectorAll('[data-book-route] span:last-child').forEach(label=>label.textContent='View payment options →');
     document.querySelectorAll('footer').forEach(footer=>{
       if(footer.querySelector('[data-payment-link]'))return;
-      footer.insertAdjacentHTML('beforeend','<div class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-5"><a href="/payments" data-payment-link class="text-xs font-black uppercase tracking-[.12em] text-summit transition hover:text-[#D68456]">Make a Payment →</a></div>');
+      footer.insertAdjacentHTML('beforeend','<div class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-5"><a href="/payments" data-payment-link class="text-xs font-black uppercase tracking-[.12em] text-summit transition hover:text-[#D68456]">Make a Payment →</a><a href="/account" class="ml-6 text-xs font-black uppercase tracking-wider text-summit">My Trips / Sign In →</a></div>');
     });
     // Prevent the original page-level email-app handlers from running.
     document.addEventListener('submit', deliver, true);

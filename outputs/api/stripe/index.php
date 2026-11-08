@@ -27,7 +27,15 @@ try {
         if (!preg_match('/^evt_[A-Za-z0-9]+$/D', $event['id'] ?? '')) reply(400, ['error' => 'Invalid event.']);
         $db->exec('BEGIN IMMEDIATE');
         $query = $db->prepare('INSERT OR IGNORE INTO events(id,received) VALUES (?,?)'); $query->execute([$event['id'], time()]);
-        if ($query->rowCount() && in_array($event['type'] ?? '', ['checkout.session.completed','checkout.session.async_payment_succeeded'], true)) {
+        $newEvent=$query->rowCount();
+        if($newEvent && ($event['type']??'')==='charge.refunded') {
+            $charge=$event['data']['object']??[];
+            if(is_int($charge['amount_refunded']??null) && $charge['amount_refunded']>=0) {
+                $update=$db->prepare('UPDATE requests SET refunded=? WHERE payment_intent=? AND mode=? AND amount>=? AND paid=1');
+                $update->execute([$charge['amount_refunded'],$charge['payment_intent']??'', $config['mode'],$charge['amount_refunded']]);
+            }
+        }
+        if ($newEvent && in_array($event['type'] ?? '', ['checkout.session.completed','checkout.session.async_payment_succeeded'], true)) {
             $session = $event['data']['object'] ?? [];
             $query = $db->prepare('SELECT * FROM requests WHERE id = ?'); $query->execute([$session['metadata']['request_id'] ?? '']);
             $request = $query->fetch(PDO::FETCH_ASSOC);
@@ -82,10 +90,16 @@ try {
     }
     $generation = (int)$request['generation'];
     $fragment = '#payment=' . $data['token'];
+    $success='https://outlandguides.com/payments?session_id={CHECKOUT_SESSION_ID}'.$fragment;
+    $cancel='https://outlandguides.com/payments?cancelled=1'.$fragment;
+    if($db->query("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='bookings'")->fetchColumn()) {
+        $lookup=$db->prepare('SELECT id FROM bookings WHERE reference=?');$lookup->execute([$request['reference']]);$bookingId=$lookup->fetchColumn();$lookup->closeCursor();
+        if($bookingId){$success='https://outlandguides.com/account?booking='.$bookingId.'&session_id={CHECKOUT_SESSION_ID}';$cancel='https://outlandguides.com/account?booking='.$bookingId.'&cancelled=1';}
+    }
     $session = stripe_request($config, 'checkout/sessions', [
         'mode' => 'payment', 'allowed_payment_method_types' => ['card'],
-        'success_url' => 'https://outlandguides.com/payments?session_id={CHECKOUT_SESSION_ID}' . $fragment,
-        'cancel_url' => 'https://outlandguides.com/payments?cancelled=1' . $fragment,
+        'success_url' => $success,
+        'cancel_url' => $cancel,
         'expires_at' => (int)$request['attempt_expires'],
         'client_reference_id' => $request['reference'],
         ...($request['email'] !== '' ? ['customer_email' => $request['email']] : []),

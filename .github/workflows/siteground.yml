@@ -38,7 +38,10 @@ jobs:
           php -l outputs/api/stripe/lib.php
           php -r "require 'outputs/api/stripe/lib.php'; require 'scripts/test-payments.php';"
           php -l outputs/api/booking/catalog.php
+          php -l outputs/api/booking/index.php
+          php -l outputs/api/booking/portal.php
           php -r "require 'outputs/api/booking/catalog.php'; require 'scripts/test-booking-catalog.php';"
+          php -r "require 'outputs/api/booking/portal.php'; require 'scripts/test-portal.php';"
 
   deploy:
     name: Publish to SiteGround

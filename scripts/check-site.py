@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1] / 'outputs'
 PAGES = {'index.html', 'about.html', 'contact.html', 'faq.html', 'gear-help.html',
-         'kilimanjaro.html', 'safari.html', 'volcan-de-fuego.html', 'payments.html'}
+         'kilimanjaro.html', 'safari.html', 'volcan-de-fuego.html', 'payments.html', 'account.html'}
 EXTENSIONS = {'.html', '.css', '.js', '.json', '.xml', '.txt', '.jpg', '.jpeg',
               '.png', '.svg', '.webm', '.mp4', '.woff', '.woff2', '.ico', '.avif', '.webp'}
 SECRET = re.compile(r'(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{20,}|whsec_[A-Za-z0-9]{20,}|-----BEGIN (?:OPENSSH |RSA |EC )?PRIVATE KEY-----')
@@ -39,7 +39,7 @@ def validate(root=ROOT):
         if not file.is_file():
             continue
         routing_config = relative.as_posix() == '.htaccess'
-        payment_backend = relative.as_posix() in {'api/stripe/index.php', 'api/stripe/lib.php', 'api/booking/catalog.php'}
+        payment_backend = relative.as_posix() in {'api/stripe/index.php', 'api/stripe/lib.php', 'api/booking/catalog.php', 'api/booking/portal.php', 'api/booking/index.php'}
         if not (routing_config or payment_backend) and (file.suffix.lower() not in EXTENSIONS or any(part.startswith('.') for part in relative.parts)):
             errors.append(f'Unexpected public file: {relative}')
         if file.stat().st_size >= 100 * 1024 * 1024:

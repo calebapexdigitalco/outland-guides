@@ -1,6 +1,6 @@
 (function () {
   const form = document.getElementById('payment-preview-form');
-  if (!form) return;
+  if (!form || !new URLSearchParams(location.hash.slice(1)).has('payment')) return;
   const review = document.getElementById('payment-review');
   const complete = document.getElementById('payment-complete');
   const connection = document.getElementById('payment-connection');

@@ -32,6 +32,7 @@ function payment_db(): PDO {
         CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, received INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS rate_limits (bucket TEXT PRIMARY KEY, count INTEGER NOT NULL);');
     chmod($directory . '/payments.sqlite', 0600);
+    if(!in_array('refunded',$db->query('PRAGMA table_info(requests)')->fetchAll(PDO::FETCH_COLUMN,1),true)) $db->exec('ALTER TABLE requests ADD COLUMN refunded INTEGER NOT NULL DEFAULT 0');
     return $db;
 }
 function stripe_request(array $config, string $resource, ?array $parameters = null, ?string $key = null): array {
@@ -97,7 +98,7 @@ function webhook_verified(string $body, string $signature, string $secret, ?int 
 function create_payment_request(PDO $db, array $data, string $mode): array {
     $expeditions = ['Mount Kilimanjaro', 'Wildlife Safari', 'Volcán de Fuego', 'Mount Kilimanjaro + Wildlife Safari Add-On', 'Custom / Private Expedition'];
     $types = ['Deposit', 'Remaining balance', 'Full payment'];
-    $routes = ['', 'Machame 6-Day', 'Machame 7-Day', 'Lemosho 6-Day', 'Lemosho 7-Day'];
+    $routes = ['', 'Machame 6-Day', 'Machame 7-Day', 'Lemosho 6-Day', 'Lemosho 7-Day', 'Shared five-person cabin', 'Private two-person cabin', '3-Day Ngorongoro Safari', '4-Day Serengeti Safari'];
     if (!in_array($data['expedition'] ?? '', $expeditions, true)
         || !in_array($data['payment_type'] ?? '', $types, true)
         || !in_array($data['route'] ?? '', $routes, true)
