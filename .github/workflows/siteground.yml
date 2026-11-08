@@ -6,11 +6,13 @@ on:
     paths:
       - 'outputs/**'
       - 'scripts/**'
+      - 'templates/**'
       - '.github/workflows/siteground.yml'
   pull_request:
     paths:
       - 'outputs/**'
       - 'scripts/**'
+      - 'templates/**'
       - '.github/workflows/siteground.yml'
   workflow_dispatch:
 
@@ -35,6 +37,7 @@ jobs:
       - name: Check payment backend
         run: |
           php -l outputs/api/stripe/index.php
+          php -l scripts/purge-siteground-cache.php
           php -l outputs/api/stripe/lib.php
           php -r "require 'outputs/api/stripe/lib.php'; require 'scripts/test-payments.php';"
           php -l outputs/api/booking/catalog.php

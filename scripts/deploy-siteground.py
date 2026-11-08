@@ -2,7 +2,7 @@
 from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen, build_opener, HTTPRedirectHandler
 import json
 import os
 import re
@@ -10,6 +10,7 @@ import subprocess
 import sys
 import time
 import importlib.util
+import shlex
 
 PROJECT = Path(__file__).resolve().parents[1]
 ROOT = PROJECT / 'outputs'
@@ -56,7 +57,7 @@ def main():
     spec = importlib.util.spec_from_file_location('check_site', PROJECT / 'scripts/check-site.py')
     checker = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(checker)
-    problems = checker.validate(ROOT)
+    problems = checker.validate(ROOT) + checker.validate_navigation(ROOT)
     if problems:
         raise ValueError('\n'.join(problems))
     files = sorted((p for p in ROOT.rglob('*') if p.is_file()),
@@ -94,6 +95,14 @@ def main():
         if result.returncode:
             diagnostic = (result.stderr or result.stdout).strip()[-1800:]
             raise RuntimeError('SiteGround upload failed. ' + diagnostic)
+        purge_code=(PROJECT/'scripts/purge-siteground-cache.php').read_text(encoding='utf-8').replace('<?php','',1)
+        command=['ssh','-p',port,'-i',str(key),'-o','BatchMode=yes','-o','IdentitiesOnly=yes',
+                 '-o','StrictHostKeyChecking=yes','-o','UserKnownHostsFile='+str(known),'-o','ConnectTimeout=30',
+                 user+'@'+host,'php -r '+shlex.quote(purge_code)]
+        purged=subprocess.run(command,capture_output=True,text=True,timeout=45)
+        if purged.returncode:
+            raise RuntimeError('Files uploaded, but SiteGround cache clearing failed. The release is not verified.')
+        print('SiteGround cache cleared after upload.',flush=True)
     verified = False
     for attempt in range(6):
         try:
@@ -108,10 +117,17 @@ def main():
         time.sleep(5)
     if not verified:
         raise RuntimeError('Upload finished, but the public release could not be confirmed. Check SiteGround cache and domain routing before retrying.')
-    request = Request(PUBLIC_URL + '/?release=' + release, headers={'Cache-Control': 'no-cache'})
-    with urlopen(request, timeout=30) as response:
-        if response.status != 200 or b'Outland Guides' not in response.read():
-            raise RuntimeError('The published homepage could not be confirmed.')
+    class NoRedirects(HTTPRedirectHandler):
+        def redirect_request(self,*args,**kwargs):return None
+    public=build_opener(NoRedirects())
+    # Verify the exact addresses guests visit, without cache-busting query strings.
+    for page in sorted(checker.PAGES):
+        path='/' if page=='index.html' else '/'+Path(page).stem
+        request=Request(PUBLIC_URL+path,headers={'User-Agent':'Outland-Deployment-Check'})
+        with public.open(request,timeout=30) as response:
+            text=response.read().decode('utf-8');references=checker.References();references.feed(text)
+            if response.status!=200 or references.accounts!=1 or references.account_links!=['/account'] or any(not checker.clean_page_link(url) for url in references.urls):
+                raise RuntimeError('The live navigation or clean address could not be verified: '+path)
     print('Published and verified https://outlandguides.com — commit ' + release[:12])
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:

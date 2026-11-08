@@ -80,19 +80,15 @@
     if(!document.querySelector('script[src="/assets/kilimanjaro-mobile-tabs.js?v=20261108"]')){const script=document.createElement('script');script.src='/assets/kilimanjaro-mobile-tabs.js?v=20261108';document.body.append(script)}
   }
   function loadSharedInquiry(){
-    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=portal-4"]'))return;
-    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=portal-4';document.body.append(script);
-  }
-  function loadAccountNavigation(){
-    const style=document.createElement('link');style.rel='stylesheet';style.href='/assets/account-navigation.css?v=portal-4';document.head.append(style);
-    const script=document.createElement('script');script.src='/assets/account-navigation.js?v=portal-4';document.body.append(script);
+    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=nav-20261108"]'))return;
+    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=nav-20261108';document.body.append(script);
   }
   function linkSafariCard(){
     if(!/\/(index\.html)?$/.test(location.pathname))return;
     const button=document.querySelector('.expedition-card [data-expedition="Wildlife Safari"]');
     if(button)button.outerHTML='<a href="/safari" class="inline-flex items-center gap-1 text-xs font-black uppercase tracking-wider text-summit hover:text-orange-300">View Safari <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>';
   }
-  document.addEventListener('DOMContentLoaded',()=>{loadKilimanjaroMobileSupport();setNavigation();loadAccountNavigation();setFooterLogo();setFooters();setFaq();setContact();setHome();linkSafariCard();wireHomeInquiry();addHomeCta();loadSharedInquiry();window.lucide?.createIcons()});
+  document.addEventListener('DOMContentLoaded',()=>{loadKilimanjaroMobileSupport();setNavigation();setFooterLogo();setFooters();setFaq();setContact();setHome();linkSafariCard();wireHomeInquiry();addHomeCta();loadSharedInquiry();window.lucide?.createIcons()});
 })();
 
 /* Volcán de Fuego is now a dedicated expedition page, not a home-page-only card. */

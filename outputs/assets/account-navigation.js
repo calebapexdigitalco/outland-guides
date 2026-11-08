@@ -1,13 +1,10 @@
 /* The same passwordless account control on every public page. */
 (function () {
   'use strict';
-  const actions = document.querySelector('#site-nav .nav-actions');
-  if (!actions || document.getElementById('account-navigation')) return;
-  document.querySelectorAll('#site-nav a[href="/account"]').forEach(link => link.remove());
-  const wrapper = document.createElement('div');
-  wrapper.id = 'account-navigation';
-  wrapper.innerHTML = '<a class="account-bubble" href="/account" aria-label="My Trips / Sign in"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/></svg><span class="account-bubble-label">My Trips</span><svg class="account-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" hidden><path d="m6 9 6 6 6-6"/></svg></a><div class="account-dropdown" id="account-dropdown" hidden><p class="account-dropdown-caption">Signed in as</p><p class="account-email"></p><a href="/account">My trips <span aria-hidden="true">↗</span></a><a href="/account?view=profile">Account & profile</a><a href="/payments">Plan a new trip</a><p class="account-security">Email-code sign-in. No password needed.</p><button type="button" class="account-signout">Sign out</button><p class="account-nav-status" role="status" hidden></p></div>';
-  actions.prepend(wrapper);
+  const wrapper = document.getElementById('account-navigation');
+  if (!wrapper || wrapper.dataset.ready) return;
+  wrapper.dataset.ready = 'true';
+  wrapper.insertAdjacentHTML('beforeend', '<div class="account-dropdown" id="account-dropdown" hidden><p class="account-dropdown-caption">Signed in as</p><p class="account-email"></p><a href="/account">My trips <span aria-hidden="true">↗</span></a><a href="/account?view=profile">Account & profile</a><a href="/payments">Plan a new trip</a><p class="account-security">Email-code sign-in. No password needed.</p><button type="button" class="account-signout">Sign out</button><p class="account-nav-status" role="status" hidden></p></div>');
   let session = null;
   const bubble = wrapper.querySelector('.account-bubble');
   const dropdown = wrapper.querySelector('.account-dropdown');

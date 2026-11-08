@@ -18,10 +18,42 @@ class References(HTMLParser):
     def __init__(self):
         super().__init__()
         self.urls = []
+        self.accounts = 0
+        self.account_links = []
+        self.account_scripts = 0
+        self.account_styles = 0
     def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if attributes.get('id') == 'account-navigation': self.accounts += 1
+        if tag == 'a' and 'account-bubble' in attributes.get('class','').split(): self.account_links.append(attributes.get('href'))
+        if tag == 'script' and urlsplit(attributes.get('src','')).path == '/assets/account-navigation.js': self.account_scripts += 1
+        if tag == 'link' and urlsplit(attributes.get('href','')).path == '/assets/account-navigation.css': self.account_styles += 1
         for key, value in attrs:
             if key in {'src', 'href', 'poster'} and value:
                 self.urls.append(value)
+
+def clean_page_link(url):
+    parts=urlsplit(url)
+    local=not parts.scheme and not parts.netloc
+    own_domain=parts.hostname in {'outlandguides.com','www.outlandguides.com'}
+    return not ((local or own_domain) and parts.path.lower().endswith('.html'))
+
+def validate_navigation(root=ROOT):
+    root=Path(root);errors=[]
+    for page in sorted(PAGES):
+        path=root/page
+        if not path.exists():continue
+        parser=References();parser.feed(path.read_text(encoding='utf-8-sig'))
+        if parser.accounts!=1 or parser.account_links!=['/account']:
+            errors.append(f'Missing or duplicate permanent My Trips link: {page}')
+        if parser.account_scripts!=1 or parser.account_styles!=1:
+            errors.append(f'Account navigation must load directly once: {page}')
+        for url in parser.urls:
+            if not clean_page_link(url):errors.append(f'Use a clean page address in {page}: {url}')
+    for script in root.rglob('*.js'):
+        for url in re.findall(r'''href\s*=\s*["']([^"']+)["']''',script.read_text(encoding='utf-8-sig')):
+            if not clean_page_link(url):errors.append(f'Use a clean page address in {script.name}: {url}')
+    return errors
 
 def validate(root=ROOT):
     root = Path(root).resolve()
@@ -68,7 +100,7 @@ def validate(root=ROOT):
     return errors
 
 if __name__ == '__main__':
-    problems = validate()
+    problems = validate() + validate_navigation()
     if shutil.which('node'):
         for script in sorted(ROOT.rglob('*.js')):
             result = subprocess.run(['node', '--check', str(script)], capture_output=True, text=True)

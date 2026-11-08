@@ -5,6 +5,7 @@
 !/DEPLOYMENT.md
 !/.github/
 !/scripts/
+!/templates/
 !/outputs/
 !/stripe-sandbox/
 
