@@ -5,6 +5,9 @@ from the project folder. Keep that process running while testing.
 
 Website with payment API: http://localhost:4184/payments.html
 The existing preview at localhost:4183 also connects to this API.
+The old sandbox form and its JavaScript are retained in this folder;
+the local server serves them only on localhost. The public payment page
+uses the separate SiteGround PHP connection and approved payment links.
 
 PRIVATE KEY SETUP
 The server prints a private setup link. Open it on this computer, then

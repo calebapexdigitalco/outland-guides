@@ -89,7 +89,13 @@ const server=http.createServer(async(req,res)=>{
       res.end(await readFile(path.join(folder,'setup.html')));return;
     }
     if(req.method!=='GET'&&req.method!=='HEAD'){json(res,405,{error:'Method not allowed.'});return}
-    const filename=path.resolve(root,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));
+    if(['/payments','/payments.html','/sandbox-payments.js'].includes(url.pathname)){
+      const script=url.pathname==='/sandbox-payments.js';
+      res.writeHead(200,{'Content-Type':script?'text/javascript; charset=utf-8':'text/html; charset=utf-8','Cache-Control':'no-store'});
+      res.end(await readFile(path.join(folder,script?'payments.js':'payments.html')));return;
+    }
+    const page=/^\/(about|contact|faq|gear-help|kilimanjaro|safari|volcan-de-fuego)\/?$/.test(url.pathname)?url.pathname.replace(/\/$/,'')+'.html':url.pathname;
+    const filename=path.resolve(root,'.'+decodeURIComponent(page==='/'?'/index.html':page));
     if(!filename.startsWith(root+path.sep)){json(res,404,{error:'Not found.'});return}
     const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.webm':'video/webm','.mp4':'video/mp4'};
     const file=await readFile(filename);

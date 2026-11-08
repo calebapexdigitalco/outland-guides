@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Review your Outland Guides expedition deposit or balance. Stripe sandbox checkout; no real charges." />
+  <title>Make a Payment | Outland Guides</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{obsidian:'#1A1A1A',slatepeak:'#44443D',summit:'#A5592E',bone:'#FDFDFD'},fontFamily:{sans:['Inter','ui-sans-serif','system-ui','sans-serif'],display:['Arial Narrow','Inter','ui-sans-serif','sans-serif']},boxShadow:{ember:'0 16px 38px rgba(165,89,46,.25)'}}}}</script>
+  <link rel="stylesheet" href="assets/navigation.css" />
+  <link rel="stylesheet" href="assets/fuego-page.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-obsidian text-bone antialiased">
+<nav id="site-nav" class="fixed inset-x-0 top-0 z-40 border-b transition-all duration-300">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
+      <a href="index.html" class="shrink-0" aria-label="Outland Guides home"><img src="assets/OutlandGuides - 21 (Horizontal).png" alt="Outland Guides" class="h-12 w-auto object-contain" /></a>
+      <div class="hidden items-center gap-7 text-xs font-bold uppercase tracking-[.14em] text-white/80 lg:flex">
+        <div class="expedition-trigger relative">
+          <a href="index.html#expeditions" class="inline-flex items-center gap-1">Expeditions <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i></a>
+          <div class="expedition-menu invisible absolute left-1/2 top-full z-50 grid w-[430px] grid-cols-2 gap-5 rounded-xl border border-white/15 bg-[#1A1A1A]/95 p-6 opacity-0 shadow-2xl backdrop-blur-xl transition duration-200"><div><p class="text-[10px] font-black uppercase tracking-[.15em] text-summit">Africa</p><a href="kilimanjaro.html" class="mt-3 block text-sm">Kilimanjaro</a><a href="safari.html" class="mt-2 block text-sm">Wildlife Safari</a></div><div><p class="text-[10px] font-black uppercase tracking-[.15em] text-summit">Central America</p><a href="volcan-de-fuego.html" class="mt-3 block text-sm">Volcán de Fuego</a></div></div>
+        </div>
+        <a href="about.html">About Us</a><a href="gear-help.html">Gear Help</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="flex items-center gap-3"><a href="contact.html" class="hidden rounded-full bg-summit px-5 py-3 text-xs font-black uppercase tracking-[.12em] text-white shadow-ember transition hover:bg-[#7A4323] sm:block">Book an Expedition</a><button id="menu-toggle" class="grid h-11 w-11 place-items-center rounded-full border border-[#44443D]/30 text-obsidian lg:hidden" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open navigation"><i data-lucide="menu" class="h-5 w-5"></i></button></div>
+    </div>
+    <div id="mobile-menu" class="hidden border-t border-[#44443D]/15 bg-[#FDFDFD]/95 px-5 pb-6 pt-4 backdrop-blur-xl lg:hidden">
+      <div class="grid gap-3 text-sm font-black uppercase tracking-[.12em] text-obsidian"><a href="index.html#expeditions">Expeditions</a><a href="kilimanjaro.html" class="text-summit">Kilimanjaro</a><a href="safari.html" class="text-summit">Wildlife Safari</a><a href="volcan-de-fuego.html" class="text-summit">Volcán de Fuego</a><a href="about.html">About Us</a><a href="gear-help.html">Gear Help</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
+    </div>
+  </nav>
+<main>
+  <section class="relative overflow-hidden px-5 pb-14 pt-40 sm:pb-20 sm:pt-48 lg:px-8">
+    <div class="mx-auto max-w-7xl">
+      <p class="text-xs font-black uppercase tracking-[.2em] text-summit">Your next step</p>
+      <h1 class="mt-4 max-w-3xl text-4xl font-black uppercase leading-none tracking-[-.04em] text-white sm:text-6xl">Make it<br><span class="text-summit">an expedition.</span></h1>
+      <p class="mt-6 max-w-2xl text-base leading-relaxed text-white/65">One place for your expedition deposit, remaining balance, or full payment. Your confirmed Outland proposal will set the amount and payment schedule.</p>
+    </div>
+  </section>
+  <section class="px-5 pb-20 lg:px-8">
+    <div class="mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[.8fr_1.2fr]">
+      <aside class="space-y-6">
+        <div class="rounded-2xl border border-summit/35 bg-summit/10 p-6">
+          <p class="text-xs font-black uppercase tracking-wider text-summit">Stripe sandbox</p>
+          <h2 class="mt-3 text-2xl font-black text-white">A clear plan before you pay.</h2>
+          <p class="mt-4 text-sm leading-relaxed text-white/70">Test the payment flow with Stripe. Test amounts are $10 for a deposit, $20 for a balance, and $30 for full payment. These are not trip prices. No real money moves and no expedition is reserved.</p><p id="payment-connection" class="mt-4 text-sm leading-relaxed text-white/75" role="status">Checking sandbox connection…</p>
+        </div>
+        <ol class="space-y-5 text-sm leading-relaxed text-white/65">
+          <li><span class="mr-2 font-black text-summit">01</span><strong class="text-white">Confirm your trip.</strong> We review dates, route, group size, and readiness with you.</li>
+          <li><span class="mr-2 font-black text-summit">02</span><strong class="text-white">Check your proposal.</strong> Use the booking reference and amount provided by Outland.</li>
+          <li><span class="mr-2 font-black text-summit">03</span><strong class="text-white">Pay your deposit or balance.</strong> Use Stripe test card details to complete the sandbox checkout.</li>
+        </ol>
+        <div class="border-t border-white/10 pt-6">
+          <p class="text-sm leading-relaxed text-white/65">Still choosing your expedition? Talk with us before making a commitment.</p>
+          <button data-open-modal class="mt-5 rounded-full px-6 py-3 text-xs font-black uppercase tracking-wider">Ask about your trip</button>
+          <p class="mt-4 text-sm text-white/55">Or call <a href="tel:+17654795280" class="text-summit underline underline-offset-4">(765) 479-5280</a></p>
+        </div>
+      </aside>
+      <div class="min-w-0 rounded-2xl border border-white/15 bg-white/[.03] p-6 sm:p-9">
+        <div class="mb-7 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-6">
+          <h2 class="text-2xl font-black text-white">Make a Payment</h2><span class="rounded-full border border-summit/40 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-summit">Sandbox · no real charges</span>
+        </div>
+        <form id="payment-preview-form" class="grid gap-5 sm:grid-cols-2">
+          <label class="sm:col-span-2 text-xs font-bold uppercase tracking-wider text-white/65">Expedition
+            <select required name="expedition" class="mt-2 w-full rounded-lg border border-white/15 bg-[#292923] px-4 py-3 text-sm text-white">
+              <option value="">Choose your expedition</option><option>Mount Kilimanjaro</option><option>Wildlife Safari</option><option>Volcán de Fuego</option><option>Custom / Private Expedition</option>
+            </select>
+          </label>
+          <label id="payment-route-field" hidden class="sm:col-span-2 text-xs font-bold uppercase tracking-wider text-white/65">Kilimanjaro option
+            <select name="route" class="mt-2 w-full rounded-lg border border-white/15 bg-[#292923] px-4 py-3 text-sm text-white"><option value="">Choose an option</option><option>Machame 6-Day</option><option>Machame 7-Day</option><option>Lemosho 6-Day</option><option>Lemosho 7-Day</option></select>
+          </label>
+          <label class="text-xs font-bold uppercase tracking-wider text-white/65">Payment type
+            <select required name="payment_type" class="mt-2 w-full rounded-lg border border-white/15 bg-[#292923] px-4 py-3 text-sm text-white"><option>Deposit</option><option>Remaining balance</option><option>Full payment</option></select>
+          </label>
+          <label class="text-xs font-bold uppercase tracking-wider text-white/65">Sandbox amount · USD
+            <input readonly name="amount" type="number" value="10" class="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-white">
+          </label>
+          <label class="sm:col-span-2 text-xs font-bold uppercase tracking-wider text-white/65">Booking reference <span class="normal-case tracking-normal text-white/40">(optional in this preview)</span>
+            <input name="reference" maxlength="80" placeholder="e.g., OG-2027-001" class="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-white">
+          </label>
+          <p class="sm:col-span-2 text-xs leading-relaxed text-white/50">Test amounts are set by the server. Your real trip amount will come from your confirmed proposal. Enter test card details only on Stripe’s checkout screen.</p>
+          <button type="submit" class="sm:col-span-2 mt-2 rounded-full px-6 py-4 text-xs font-black uppercase tracking-wider">Review sandbox payment</button>
+        </form>
+        <section id="payment-review" hidden aria-labelledby="payment-review-title">
+          <p class="text-xs font-black uppercase tracking-wider text-summit">Review your test payment</p>
+          <h3 id="payment-review-title" tabindex="-1" class="mt-3 text-2xl font-black text-white">Check the details.</h3>
+          <dl id="payment-summary" class="mt-6 grid gap-4 text-sm"></dl>
+          <p class="mt-6 text-sm leading-relaxed text-white/60">Continue to Stripe’s sandbox checkout. Use test payment details only. A successful test payment does not reserve an expedition.</p>
+          <div class="mt-7 flex flex-wrap gap-3"><button id="finish-payment-demo" disabled class="rounded-full bg-summit px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-ember">Continue to Stripe sandbox</button><button id="edit-payment-demo" class="rounded-full border border-white/30 px-6 py-3 text-xs font-black uppercase tracking-wider text-white">Edit details</button></div>
+        </section>
+        <div id="payment-complete" hidden role="status" class="rounded-xl border border-summit/35 bg-summit/10 p-6">
+          <h3 tabindex="-1" class="text-2xl font-black text-white">Preview complete.</h3>
+          <p class="mt-4 text-sm leading-relaxed text-white/70">No payment was taken and no booking was created. Contact Outland to confirm your trip and arrange payment when live checkout is available.</p>
+          <button data-open-modal class="mt-6 rounded-full px-6 py-3 text-xs font-black uppercase tracking-wider">Confirm your trip with us</button>
+          <button id="restart-payment-demo" class="mt-5 block text-sm font-bold text-summit underline underline-offset-4">Start another preview</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="bg-[#10100E] px-5 pb-8 pt-14 lg:px-8"><div class="mx-auto grid max-w-7xl gap-10 border-b border-white/10 pb-10 md:grid-cols-[1.25fr_1fr_1fr_auto]"><div><img src="assets/outland-guides-text-only.png" alt="Outland Guides" class="h-auto w-44 max-w-full" /><p class="mt-4 max-w-xs text-sm leading-relaxed text-white/50">Local mountain knowledge. Clear expedition support. Serious objectives, done right.</p></div><div><h3 class="text-xs font-black uppercase tracking-[.16em] text-white">Explore</h3><div class="mt-4 space-y-2 text-sm text-white/55"><a class="block hover:text-summit" href="kilimanjaro.html">Kilimanjaro</a><a class="block hover:text-summit" href="safari.html">Wildlife Safari</a><a class="block hover:text-summit" href="volcan-de-fuego.html">Volcán de Fuego</a></div></div><div><h3 class="text-xs font-black uppercase tracking-[.16em] text-white">Navigate</h3><div class="mt-4 space-y-2 text-sm text-white/55"><a class="block hover:text-summit" href="about.html">About Us</a><a class="block hover:text-summit" href="gear-help.html">Gear Help</a><a class="block hover:text-summit" href="faq.html">FAQ</a><a class="block hover:text-summit" href="contact.html">Contact</a></div></div><div class="flex gap-3 md:justify-end"><a class="text-summit hover:text-[#D68456]" href="https://www.instagram.com/outlandguides" aria-label="Instagram"><svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/></svg></a><a class="text-summit hover:text-[#D68456]" href="https://www.facebook.com/outlandguides" aria-label="Facebook"><svg class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M13.7 21v-8h2.7l.4-3h2.6V10H13.7V8.1c0-.9.3-1.5 1.6-1.5H17V3.9c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8V10H8.5v3h2.6v8h2.6Z"/></svg></a></div></div><div class="mx-auto mt-6 flex max-w-7xl flex-col gap-3 text-[10px] font-bold uppercase tracking-[.12em] text-white/35 sm:flex-row sm:justify-between"><p>© 2026 Outland Guides. All rights reserved.</p><p>Global summits. Local legends.</p></div></footer>
+<script src="assets/offering-scope.js"></script>
+<script src="/sandbox-payments.js"></script>
+</body>
+</html>

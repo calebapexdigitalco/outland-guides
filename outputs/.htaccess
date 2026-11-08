@@ -2,6 +2,9 @@
 Options -MultiViews
 RewriteEngine On
 
+RewriteRule ^api/stripe/(config|request|checkout|status|webhook)$ api/stripe/index.php [END]
+RewriteRule ^api/stripe/.*\.php$ - [R=404,END]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(about|contact|faq|gear-help|kilimanjaro|safari|volcan-de-fuego|payments)/?$ $1.html [END]

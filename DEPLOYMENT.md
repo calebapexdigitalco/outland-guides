@@ -73,4 +73,18 @@ Public links use extensionless addresses, such as `/gear-help` and `/kilimanjaro
 
 ## Payments
 
-This deployment publishes the existing static site. The current payment page is sandbox-only and its API is not hosted. Production Stripe checkout, real booking amounts, and webhook handling are separate work; no live payment capability is enabled by this workflow.
+The central `/payments` page uses a small PHP connection on SiteGround at `/api/stripe/`. No Node hosting is needed. Payment code is versioned and deployed; credentials and the SQLite payment ledger are stored in `/home/customer/www/outlandguides.com/private/outland-payments`, outside `public_html` and outside GitHub. Deployment preserves this private directory.
+
+Run `python scripts/connect-stripe.py` locally and open the private localhost link it prints. Enter the live secret key in that page, never in chat or source files. Setup checks Stripe account activation and bank payouts, registers a signed Checkout webhook, and saves credentials privately on SiteGround. A protected recovery copy is kept under `%LOCALAPPDATA%/OutlandGuides/payments`. The setup page runs only on this computer, accepts a one-time token, and never charges anyone.
+
+Only approved booking payment requests can reach Checkout. Each link fixes the expedition, reference, payment type, and exact amount due now. Public website prices are not used to calculate charges. The server verifies amounts, payment status, mode, and the booking identity before recording payment. Signed webhooks record payment even when a guest closes the browser. Repeated checkout clicks reuse the same session, paid links cannot charge again, and retry attempts use persistent idempotency keys. Credentials and card details never go to the browser; card collection happens on Stripe's hosted Checkout page.
+
+After agreeing on the trip and amount with a guest, create a private link locally:
+
+```
+python scripts/create-payment-request.py --reference OG-2027-001 --amount 999.50 --expedition "Mount Kilimanjaro" --route "Machame 7-Day" --type "Deposit"
+```
+
+The command above is an example only: replace its amount with the actual approved amount due now. It creates a link, not a charge, and sends no email. Share the returned link only with the guest. Optional `--email` prefills Stripe's checkout email; `--valid-days` sets link validity (default seven days, maximum 90). Create a separate request for a later balance. Keep the booking's full proposal and cancellation agreement in your normal booking records. Payment confirmation alone does not automatically arrange guide logistics or reserve dates.
+
+Manage payouts, refunds, disputes, and payment receipts in Stripe. Turn on successful-payment receipt emails in Stripe's customer email settings. Paid links stay paid after a refund; use a newly approved request if another payment is needed. Check Stripe before reissuing a request after an uncertain payment. No real card was charged during development tests.

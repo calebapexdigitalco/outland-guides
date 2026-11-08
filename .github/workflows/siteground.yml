@@ -32,6 +32,11 @@ jobs:
           persist-credentials: false
       - run: python3 scripts/check-site.py
       - run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Check payment backend
+        run: |
+          php -l outputs/api/stripe/index.php
+          php -l outputs/api/stripe/lib.php
+          php -r "require 'outputs/api/stripe/lib.php'; require 'scripts/test-payments.php';"
 
   deploy:
     name: Publish to SiteGround

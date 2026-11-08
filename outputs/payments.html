@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Review your Outland Guides expedition deposit or balance. Stripe sandbox checkout; no real charges." />
+  <meta name="description" content="Review your Outland Guides expedition deposit or balance. Pay an agreed booking amount securely through Stripe." />
   <title>Make a Payment | Outland Guides</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>tailwind.config={theme:{extend:{colors:{obsidian:'#1A1A1A',slatepeak:'#44443D',summit:'#A5592E',bone:'#FDFDFD'},fontFamily:{sans:['Inter','ui-sans-serif','system-ui','sans-serif'],display:['Arial Narrow','Inter','ui-sans-serif','sans-serif']},boxShadow:{ember:'0 16px 38px rgba(165,89,46,.25)'}}}}</script>
   <link rel="stylesheet" href="/assets/navigation.css" />
   <link rel="stylesheet" href="/assets/fuego-page.css" />
+  <style>[hidden]{display:none!important}</style>
   <script src="https://unpkg.com/lucide@latest"></script>
 <link rel="canonical" href="https://outlandguides.com/payments" />
 </head>
@@ -42,14 +44,14 @@
     <div class="mx-auto grid max-w-7xl items-start gap-8 lg:grid-cols-[.8fr_1.2fr]">
       <aside class="space-y-6">
         <div class="rounded-2xl border border-summit/35 bg-summit/10 p-6">
-          <p class="text-xs font-black uppercase tracking-wider text-summit">Stripe sandbox</p>
+          <p class="text-xs font-black uppercase tracking-wider text-summit">Your confirmed booking</p>
           <h2 class="mt-3 text-2xl font-black text-white">A clear plan before you pay.</h2>
-          <p class="mt-4 text-sm leading-relaxed text-white/70">Test the payment flow with Stripe. Test amounts are $10 for a deposit, $20 for a balance, and $30 for full payment. These are not trip prices. No real money moves and no expedition is reserved.</p><p id="payment-connection" class="mt-4 text-sm leading-relaxed text-white/75" role="status">Checking sandbox connection…</p>
+          <p class="mt-4 text-sm leading-relaxed text-white/70">Your payment link is prepared for your agreed trip and amount. Review the details here, then enter your card information securely on Stripe. Your card details never pass through this website.</p><p id="payment-connection" class="mt-4 text-sm leading-relaxed text-white/75" role="status">Checking payment availability…</p>
         </div>
         <ol class="space-y-5 text-sm leading-relaxed text-white/65">
           <li><span class="mr-2 font-black text-summit">01</span><strong class="text-white">Confirm your trip.</strong> We review dates, route, group size, and readiness with you.</li>
-          <li><span class="mr-2 font-black text-summit">02</span><strong class="text-white">Check your proposal.</strong> Use the booking reference and amount provided by Outland.</li>
-          <li><span class="mr-2 font-black text-summit">03</span><strong class="text-white">Pay your deposit or balance.</strong> Use Stripe test card details to complete the sandbox checkout.</li>
+          <li><span class="mr-2 font-black text-summit">02</span><strong class="text-white">Check your proposal.</strong> Open the private payment link provided with your confirmed Outland proposal.</li>
+          <li><span class="mr-2 font-black text-summit">03</span><strong class="text-white">Pay your deposit or balance.</strong> Check your agreed amount, then continue to secure Stripe checkout.</li>
         </ol>
         <div class="border-t border-white/10 pt-6">
           <p class="text-sm leading-relaxed text-white/65">Still choosing your expedition? Talk with us before making a commitment.</p>
@@ -59,41 +61,29 @@
       </aside>
       <div class="min-w-0 rounded-2xl border border-white/15 bg-white/[.03] p-6 sm:p-9">
         <div class="mb-7 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-6">
-          <h2 class="text-2xl font-black text-white">Make a Payment</h2><span class="rounded-full border border-summit/40 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-summit">Sandbox · no real charges</span>
+          <h2 class="text-2xl font-black text-white">Make a Payment</h2><span class="rounded-full border border-summit/40 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-summit" id="payment-mode">Secure Stripe checkout</span>
         </div>
-        <form id="payment-preview-form" class="grid gap-5 sm:grid-cols-2">
-          <label class="sm:col-span-2 text-xs font-bold uppercase tracking-wider text-white/65">Expedition
-            <select required name="expedition" class="mt-2 w-full rounded-lg border border-white/15 bg-[#292923] px-4 py-3 text-sm text-white">
-              <option value="">Choose your expedition</option><option>Mount Kilimanjaro</option><option>Wildlife Safari</option><option>Volcán de Fuego</option><option>Custom / Private Expedition</option>
-            </select>
+        <form id="payment-preview-form" class="grid gap-5">
+          <p class="text-sm leading-relaxed text-white/65">Already planning with us? Open the private payment link we sent, or paste your payment code below. We will always agree on your trip and price before requesting payment.</p>
+          <label for="payment-code" class="text-xs font-bold uppercase tracking-wider text-white/65">Your payment code
+            <input id="payment-code" required name="token" type="password" autocomplete="off" spellcheck="false" maxlength="64" pattern="[a-f0-9]{64}" placeholder="Paste the code from your payment link" class="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-white focus:border-summit" aria-describedby="payment-code-help">
           </label>
-          <label id="payment-route-field" hidden class="sm:col-span-2 text-xs font-bold uppercase tracking-wider text-white/65">Kilimanjaro option
-            <select name="route" class="mt-2 w-full rounded-lg border border-white/15 bg-[#292923] px-4 py-3 text-sm text-white"><option value="">Choose an option</option><option>Machame 6-Day</option><option>Machame 7-Day</option><option>Lemosho 6-Day</option><option>Lemosho 7-Day</option></select>
-          </label>
-          <label class="text-xs font-bold uppercase tracking-wider text-white/65">Payment type
-            <select required name="payment_type" class="mt-2 w-full rounded-lg border border-white/15 bg-[#292923] px-4 py-3 text-sm text-white"><option>Deposit</option><option>Remaining balance</option><option>Full payment</option></select>
-          </label>
-          <label class="text-xs font-bold uppercase tracking-wider text-white/65">Sandbox amount · USD
-            <input readonly name="amount" type="number" value="10" class="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-white">
-          </label>
-          <label class="sm:col-span-2 text-xs font-bold uppercase tracking-wider text-white/65">Booking reference <span class="normal-case tracking-normal text-white/40">(optional in this preview)</span>
-            <input name="reference" maxlength="80" placeholder="e.g., OG-2027-001" class="mt-2 w-full rounded-lg border border-white/15 bg-black/20 px-4 py-3 text-sm text-white">
-          </label>
-          <p class="sm:col-span-2 text-xs leading-relaxed text-white/50">Test amounts are set by the server. Your real trip amount will come from your confirmed proposal. Enter test card details only on Stripe’s checkout screen.</p>
-          <button type="submit" class="sm:col-span-2 mt-2 rounded-full px-6 py-4 text-xs font-black uppercase tracking-wider">Review sandbox payment</button>
+          <p id="payment-code-help" class="text-xs leading-relaxed text-white/50">Need your payment link? Contact us using “Ask about your trip.” Your booking reference alone cannot authorize a payment.</p>
+          <button id="review-payment" type="submit" disabled class="mt-2 rounded-full bg-summit px-6 py-4 text-xs font-black uppercase tracking-wider text-white disabled:opacity-50">Review my payment</button>
+          <p id="payment-form-status" class="text-sm leading-relaxed text-white/75" role="status" aria-live="polite"></p>
         </form>
         <section id="payment-review" hidden aria-labelledby="payment-review-title">
-          <p class="text-xs font-black uppercase tracking-wider text-summit">Review your test payment</p>
+          <p class="text-xs font-black uppercase tracking-wider text-summit">Your agreed booking amount</p>
           <h3 id="payment-review-title" tabindex="-1" class="mt-3 text-2xl font-black text-white">Check the details.</h3>
           <dl id="payment-summary" class="mt-6 grid gap-4 text-sm"></dl>
-          <p class="mt-6 text-sm leading-relaxed text-white/60">Continue to Stripe’s sandbox checkout. Use test payment details only. A successful test payment does not reserve an expedition.</p>
-          <div class="mt-7 flex flex-wrap gap-3"><button id="finish-payment-demo" disabled class="rounded-full bg-summit px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-ember">Continue to Stripe sandbox</button><button id="edit-payment-demo" class="rounded-full border border-white/30 px-6 py-3 text-xs font-black uppercase tracking-wider text-white">Edit details</button></div>
+          <p class="mt-6 text-sm leading-relaxed text-white/60">Continue to Stripe to pay the amount shown above. Your trip arrangements and cancellation terms are those in your confirmed Outland Guides proposal.</p>
+          <div class="mt-7 flex flex-wrap gap-3"><button id="finish-payment-demo" disabled class="rounded-full bg-summit px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-ember">Continue to secure checkout</button><button id="edit-payment-demo" class="rounded-full border border-white/30 px-6 py-3 text-xs font-black uppercase tracking-wider text-white">Edit details</button></div>
         </section>
         <div id="payment-complete" hidden role="status" class="rounded-xl border border-summit/35 bg-summit/10 p-6">
-          <h3 tabindex="-1" class="text-2xl font-black text-white">Preview complete.</h3>
-          <p class="mt-4 text-sm leading-relaxed text-white/70">No payment was taken and no booking was created. Contact Outland to confirm your trip and arrange payment when live checkout is available.</p>
+          <h3 tabindex="-1" class="text-2xl font-black text-white">Checking your payment.</h3>
+          <p class="mt-4 text-sm leading-relaxed text-white/70">We confirm payment directly with Stripe. Contact us if you have any questions about your booking.</p>
           <button data-open-modal class="mt-6 rounded-full px-6 py-3 text-xs font-black uppercase tracking-wider">Confirm your trip with us</button>
-          <button id="restart-payment-demo" class="mt-5 block text-sm font-bold text-summit underline underline-offset-4">Start another preview</button>
+          <button id="restart-payment-demo" class="mt-5 block text-sm font-bold text-summit underline underline-offset-4">Check payment status again</button>
         </div>
       </div>
     </div>

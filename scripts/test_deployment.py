@@ -66,6 +66,16 @@ class DeploymentTests(unittest.TestCase):
             self.assertEqual(checker.validate(root), [])
             (root / '.private').write_text('not public', encoding='utf-8')
             self.assertTrue(any('Unexpected public file: .private' in error for error in checker.validate(root)))
+    def test_payment_backend_allowlist_still_rejects_secrets(self):
+        with TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            api = root / 'api' / 'stripe'
+            api.mkdir(parents=True)
+            (api / 'index.php').write_text('<?php echo "whsec_' + 'x' * 30 + '";', encoding='utf-8')
+            (api / 'config.php').write_text('<?php // private configuration must stay outside public_html', encoding='utf-8')
+            errors = checker.validate(root)
+            self.assertTrue(any('private credential' in error for error in errors))
+            self.assertTrue(any('Unexpected public file: api' in error for error in errors))
 
 if __name__ == '__main__':
     unittest.main()
