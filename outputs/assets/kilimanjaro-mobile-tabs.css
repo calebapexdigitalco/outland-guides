@@ -26,3 +26,9 @@
   .route-day { grid-template-columns: 1fr !important; gap: .42rem !important; padding-left: .8rem !important; }
   .route-day p { font-size: .86rem !important; line-height: 1.56 !important; }
 }
+
+/* Keep the booking destination prominent without changing selected-tab semantics. */
+.kili-tab-list .tab[data-tab="pricing"]{background:#A5592E!important;color:#fff!important;border:1px solid #D68456!important;border-radius:9px;box-shadow:0 0 18px #A5592E70;font-weight:900}
+.kili-tab-list .tab[data-tab="pricing"]:hover,.kili-tab-list .tab[data-tab="pricing"]:focus-visible{background:#BC6838!important;box-shadow:0 0 24px #A5592Ea0}
+.kili-tab-list .tab[data-tab="pricing"][aria-selected="true"]{outline:2px solid #f2c8a9;outline-offset:-3px}
+@media(min-width:640px){.kilimanjaro-hero>img{top:6rem!important;height:calc(100% - 6rem)!important;object-position:50% 0%!important}.kilimanjaro-hero>img+div{background:linear-gradient(90deg,rgba(26,26,26,.65),rgba(26,26,26,.12) 72%),linear-gradient(0deg,rgba(26,26,26,.9),transparent 70%)!important}}

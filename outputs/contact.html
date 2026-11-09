@@ -52,7 +52,7 @@
     const toggle = document.getElementById('menu-toggle'); const menu = document.getElementById('mobile-menu'); toggle.addEventListener('click', () => { const open = !menu.classList.contains('hidden'); menu.classList.toggle('hidden', open); toggle.setAttribute('aria-expanded', String(!open)); toggle.innerHTML = `<i data-lucide="${open ? 'menu' : 'x'}" class="h-5 w-5"></i>`; lucide.createIcons(); });
     document.getElementById('contact-form').addEventListener('submit', (event) => { event.preventDefault(); const d = new FormData(event.currentTarget); const subject = encodeURIComponent(`Outland Guides contact: ${d.get('interest')}`); const body = encodeURIComponent(`Name: ${d.get('name')}\nEmail: ${d.get('email')}\nPhone: ${d.get('phone') || 'Not provided'}\nInterest: ${d.get('interest')}\nRough travel window: ${d.get('travel_window') || 'Flexible / not selected'}\n\nMessage:\n${d.get('message')}`); window.location.href = `mailto:info@outlandguides.com?subject=${subject}&body=${body}`; });
   </script>
-<script src="/assets/offering-scope.js?v=nav-20261108"></script></body>
+<script src="/assets/offering-scope.js?v=routes-six-1"></script></body>
 </html>
 
 

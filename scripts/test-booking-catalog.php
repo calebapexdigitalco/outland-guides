@@ -27,3 +27,7 @@ foreach ([[400000,200000,0,'deposit'],[400000,400000,0,'balance'],[400000,0,0,'b
     try { booking_payment_amount(...$invalid); throw new LogicException('Invalid payment option accepted.'); } catch(InvalidArgumentException $expected) {}
 }
 echo "Booking price and balance tests passed.\n";
+
+foreach ([2=>[1899,1999],3=>[1879,1989],4=>[1849,1979],5=>[1749,1969],6=>[1749,1899],12=>[1749,1899]] as $count=>$prices) {
+ foreach(['marangu-5','marangu-6'] as $i=>$id) booking_check(quote_expedition(['option_id'=>$id,'travelers'=>$count])['total_amount']===$prices[$i]*100*$count,'Marangu group pricing matches the customer table.');
+}

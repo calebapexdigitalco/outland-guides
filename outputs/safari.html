@@ -66,8 +66,8 @@
     tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(item=>item.setAttribute('aria-selected','false'));panels.forEach(panel=>{panel.classList.add('hidden');panel.classList.remove('panel')});tab.setAttribute('aria-selected','true');const panel=document.querySelector(`[data-panel="${tab.dataset.tab}"]`);panel.classList.remove('hidden');panel.classList.add('panel');const top=Math.max(0,panel.getBoundingClientRect().top+window.scrollY-140);window.scrollTo({top,behavior:'smooth'});lucide.createIcons()}));
     document.querySelectorAll('.route-side').forEach(side=>{const links=[...side.querySelectorAll('a')];links.forEach(link=>link.addEventListener('click',event=>{event.preventDefault();links.forEach(item=>item.classList.remove('active'));link.classList.add('active');document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'})}))});
   </script>
-  <script src="/assets/safari-pricing.js?v=20261108"></script>
-  <script src="/assets/safari-wildlife.js?v=20261108"></script>
-  <script src="/assets/offering-scope.js?v=nav-20261108"></script>
+  <script src="/assets/safari-pricing.js?v=routes-six-1"></script>
+  <script src="/assets/safari-wildlife.js?v=routes-six-1"></script>
+  <script src="/assets/offering-scope.js?v=routes-six-1"></script>
 </body>
 </html>

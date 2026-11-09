@@ -21,6 +21,8 @@
     const tabList = document.querySelector('[role="tablist"]');
     if (!tabList || !/\/(kilimanjaro|safari|volcan-de-fuego)(?:\.html)?\/?$/.test(location.pathname)) return;
     tabList.classList.add('kili-tab-list');
+    const orderPricing=()=>{const pricing=tabList.querySelector('[data-tab="pricing"]');if(pricing&&tabList.lastElementChild!==pricing)tabList.append(pricing);};
+    orderPricing();new MutationObserver(orderPricing).observe(tabList,{childList:true});
     tabList.closest('section')?.classList.add('kili-tab-section');
     const safari=/\/safari(?:\.html)?\/?$/.test(location.pathname);
     const kilimanjaro=/\/kilimanjaro(?:\.html)?\/?$/.test(location.pathname);

@@ -8,6 +8,8 @@ function expedition_catalog(): array {
         'machame-7' => ['name'=>'Mount Kilimanjaro','option'=>'Machame 7-Day','days'=>7,'kind'=>'mountain','tiers'=>[2=>219900,3=>217900,4=>214900,5=>199900,6=>189900]],
         'lemosho-6' => ['name'=>'Mount Kilimanjaro','option'=>'Lemosho 6-Day','days'=>6,'kind'=>'mountain','tiers'=>[2=>204900,3=>202900,4=>199900,5=>184900,6=>174900]],
         'lemosho-7' => ['name'=>'Mount Kilimanjaro','option'=>'Lemosho 7-Day','days'=>7,'kind'=>'mountain','tiers'=>[2=>224900,3=>222900,4=>219900,5=>204900,6=>194900]],
+        'marangu-5' => ['name'=>'Mount Kilimanjaro','option'=>'Marangu 5-Day','days'=>5,'kind'=>'mountain','tiers'=>[2=>189900,3=>187900,4=>184900,5=>174900,6=>174900]],
+        'marangu-6' => ['name'=>'Mount Kilimanjaro','option'=>'Marangu 6-Day','days'=>6,'kind'=>'mountain','tiers'=>[2=>199900,3=>198900,4=>197900,5=>196900,6=>189900]],
         'fuego-shared' => ['name'=>'Volcán de Fuego','option'=>'Shared five-person cabin','days'=>2,'kind'=>'volcano','min_travelers'=>1,'max_travelers'=>5,'tiers'=>[1=>20000]],
         'fuego-private' => ['name'=>'Volcán de Fuego','option'=>'Private two-person cabin','days'=>2,'kind'=>'private-cabin','min_travelers'=>2,'max_travelers'=>2,'tiers'=>[1=>49900]],
         'safari-3' => ['name'=>'Wildlife Safari','option'=>'3-Day Ngorongoro Safari','days'=>3,'kind'=>'safari','tiers'=>[2=>134900,3=>119900,5=>109900]],
