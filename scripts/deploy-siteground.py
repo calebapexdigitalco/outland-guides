@@ -1,6 +1,6 @@
 """Upload only outputs/ over pinned-host SFTP, then verify the public release."""
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from tempfile import TemporaryDirectory
 from urllib.request import Request, urlopen, build_opener, HTTPRedirectHandler
 from urllib.error import HTTPError
@@ -49,6 +49,10 @@ def public_directories(files, root):
                    if parent != root and parent.is_relative_to(root)}
     return sorted(directories, key=lambda path: (path.count('/'), path))
 
+def private_page_directory(destination):
+    # destination has already been restricted to this exact site's public_html.
+    return str(PurePosixPath(destination).parent / 'private' / 'outland-pages')
+
 def main():
     settings = {name: os.environ.get(name, '') for name in REQUIRED}
     host, user, port, destination = validate_settings(settings)
@@ -73,13 +77,22 @@ def main():
         marker = temporary / 'deployment.json'
         marker.write_text(json.dumps({'commit': release, 'deployed_at': datetime.now(timezone.utc).isoformat(),
                                      'files': len(files)}), encoding='utf-8')
-        commands = ['cd ' + quote(destination)]
+        private_pages = private_page_directory(destination)
+        commands = ['-mkdir ' + quote(str(PurePosixPath(private_pages).parent)), '-mkdir ' + quote(private_pages),
+                    'cd ' + quote(private_pages)]
+        for file in files:
+            if file.suffix.lower() != '.html':continue
+            if file.name not in checker.PAGES:raise RuntimeError('Unexpected private page source.')
+            upload=file.name+'.outland-upload-'+release[:12]
+            commands.extend(['put '+quote(file.as_posix())+' '+quote(upload),'rename '+quote(upload)+' '+quote(file.name)])
+        commands.append('cd ' + quote(destination))
         directories = public_directories(files, ROOT)
         for directory in directories:
             # A leading minus only ignores "already exists"; put/rename errors still abort.
             commands.append('-mkdir ' + quote(directory))
         commands.append('-mkdir "assets"')
         for file in files:
+            if file.suffix.lower() == '.html':continue
             target = file.relative_to(ROOT).as_posix()
             upload = target + '.outland-upload-' + release[:12]
             commands.extend(['put ' + quote(file.as_posix()) + ' ' + quote(upload),
@@ -87,6 +100,9 @@ def main():
         # This retired, superseded price/demo script is no longer part of the site.
         # Remove this exact known file only; never mirror-delete server-private files.
         commands.append('-rm "assets/kilimanjaro-routes.js"')
+        # HTML is served by the clean-address controller from the private folder.
+        # Remove only the exact known public duplicates, never unrelated server files.
+        for page in sorted(checker.PAGES):commands.append('-rm '+quote(page))
         marker_upload = 'assets/deployment.json.outland-upload-' + release[:12]
         commands.extend(['put ' + quote(marker.as_posix()) + ' ' + quote(marker_upload),
                          'rename ' + quote(marker_upload) + ' "assets/deployment.json"', 'bye'])

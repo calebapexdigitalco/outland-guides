@@ -37,6 +37,7 @@ jobs:
       - run: node scripts/test-route-finder.cjs
       - name: Check payment backend
         run: |
+          php -l outputs/index.php
           php -l outputs/api/stripe/index.php
           php -l scripts/purge-siteground-cache.php
           php -l outputs/api/stripe/lib.php

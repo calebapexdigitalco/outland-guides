@@ -80,6 +80,9 @@ class DeploymentTests(unittest.TestCase):
         root = Path('/site/outputs')
         files = [root / 'api/stripe/index.php', root / 'assets/logo.png', root / 'index.html']
         self.assertEqual(deploy.public_directories(files, root), ['api','assets','api/stripe'])
+    def test_backing_pages_stay_outside_the_public_directory(self):
+        target=deploy.private_page_directory('/home/customer/www/outlandguides.com/public_html')
+        self.assertEqual(target,'/home/customer/www/outlandguides.com/private/outland-pages')
 
 if __name__ == '__main__':
     unittest.main()

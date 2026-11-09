@@ -103,7 +103,7 @@ Paid Checkout Sessions return to `/account` with the booking reference. Stripe w
 The older private payment-link flow remains available for previously issued links. The default public page uses the trip selector and account flow.
 # Public URLs, search metadata, and shared policies
 
-The public site uses `/kilimanjaro`, `/safari`, `/privacy-terms`, and the other clean page addresses. HTML files remain the internal backing files. `.htaccess` rejects explicit browser requests for `*.html` with HTTP 404, without redirects; internal clean-address rewrites continue to return HTTP 200. Do not block the old HTML URLs in robots.txt, because crawlers must be able to observe their 404 response.
+The public site uses `/kilimanjaro`, `/safari`, `/privacy-terms`, and the other clean page addresses. HTML files remain the source backing files in Git, but deployment places them outside public_html in the site-specific private/outland-pages folder. A small allowlisted PHP controller serves the clean addresses. The exact known public HTML duplicates are removed on deployment, and explicit browser requests for `*.html` return HTTP 404 without redirects. This also prevents SiteGround static delivery from bypassing rewrite-only protections. Do not block the old HTML URLs in robots.txt, because crawlers must be able to observe their 404 response.
 
 Run `python scripts/build-seo.py` after adding or updating the metadata catalog. It writes unique titles/descriptions, canonical URLs, social metadata, organization/site/page structured data, robots.txt, and sitemap.xml. The sitemap contains public information pages only. Account and payments pages use `noindex,follow` and are intentionally crawlable so crawlers can read that instruction.
 

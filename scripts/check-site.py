@@ -71,7 +71,7 @@ def validate(root=ROOT):
         if not file.is_file():
             continue
         routing_config = relative.as_posix() == '.htaccess'
-        payment_backend = relative.as_posix() in {'api/stripe/index.php', 'api/stripe/lib.php', 'api/booking/catalog.php', 'api/booking/portal.php', 'api/booking/index.php'}
+        payment_backend = relative.as_posix() in {'index.php', 'api/stripe/index.php', 'api/stripe/lib.php', 'api/booking/catalog.php', 'api/booking/portal.php', 'api/booking/index.php'}
         if not (routing_config or payment_backend) and (file.suffix.lower() not in EXTENSIONS or any(part.startswith('.') for part in relative.parts)):
             errors.append(f'Unexpected public file: {relative}')
         if file.stat().st_size >= 100 * 1024 * 1024:
