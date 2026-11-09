@@ -1,4 +1,10 @@
 /* Keep the Fuego header identical to the shared Kilimanjaro/Safari navigation. */
+@media(min-width:1024px){
+  .fuego-hero .fuego-hero-visual {
+    top:6rem;background-position:64% 34%!important;
+    background-image:linear-gradient(90deg,rgba(13,13,11,.86) 0%,rgba(13,13,11,.64) 32%,rgba(13,13,11,.12) 62%,rgba(13,13,11,.02) 100%),linear-gradient(0deg,rgba(13,13,11,.8),transparent 55%),url('/assets/volcan-de-fuego-cone-eruption.png')!important;
+  }
+}
 #site-nav{background:rgba(253,253,253,.96);border-color:rgba(68,68,61,.18)}
 #site-nav.nav-scrolled{background:rgba(253,253,253,.9)!important;box-shadow:0 10px 35px rgba(0,0,0,.16)}
 .tab[aria-selected="true"]{color:#FDFDFD;border-bottom:2px solid #A5592E;background:linear-gradient(180deg,rgba(165,89,46,.12),transparent)}

@@ -1,4 +1,15 @@
 /* Shared Outland Guides navigation — loaded by every site page. */
+/* Shared disclosure behavior, including pointer travel and keyboard navigation. */
+#site-nav .expedition-trigger .expedition-menu {
+  top:100%;margin-top:0!important;transform:translate(-50%,8px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+}
+#site-nav .expedition-trigger:hover .expedition-menu,
+#site-nav .expedition-trigger:focus-within .expedition-menu {
+  opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0);
+}
+#site-nav .expedition-trigger::after {content:'';position:absolute;top:100%;left:-12px;right:-12px;height:12px;}
 /* Filled actions are calm by default; glow is reserved for primary next steps. */
 :is(main a.inline-flex, main a.rounded-full, .expedition-card a, [data-open-modal], [data-explore-trip], [data-custom-inquiry], .mobile-book-cta, form button[type="submit"]) {
   display:inline-flex;
