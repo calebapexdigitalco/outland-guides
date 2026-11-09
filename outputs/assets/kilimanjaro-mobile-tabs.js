@@ -8,7 +8,8 @@
     const panel = document.querySelector(`[data-panel="${tab.dataset.tab}"]`);
     if (!panel) return;
     tabs.forEach(item => item.setAttribute('aria-selected', String(item === tab)));
-    panels.forEach(item => { const active = item === panel; item.classList.toggle('hidden', !active); item.classList.toggle('panel', active); });
+    tabs.forEach(item => item.tabIndex = item === tab ? 0 : -1);
+    panels.forEach(item => { const active = item === panel; item.hidden = !active; item.classList.toggle('hidden', !active); item.classList.toggle('panel', active); });
     panel.classList.add('kili-tab-panel');
     requestAnimationFrame(() => {
       const nav = document.getElementById('site-nav');
@@ -21,8 +22,26 @@
     const tabList = document.querySelector('[role="tablist"]');
     if (!tabList || !/\/(kilimanjaro|safari|volcan-de-fuego)(?:\.html)?\/?$/.test(location.pathname)) return;
     tabList.classList.add('kili-tab-list');
-    const orderPricing=()=>{const pricing=tabList.querySelector('[data-tab="pricing"]');if(pricing&&tabList.lastElementChild!==pricing)tabList.append(pricing);};
-    orderPricing();new MutationObserver(orderPricing).observe(tabList,{childList:true});
+    const synchronizeTabs=()=>{
+      const pricing=tabList.querySelector('[data-tab="pricing"]');if(pricing&&tabList.lastElementChild!==pricing)tabList.append(pricing);
+      tabList.querySelectorAll('[data-tab]').forEach(tab=>{
+        const panel=document.querySelector('[data-panel="'+tab.dataset.tab+'"]');if(!panel)return;
+        const active=tab.getAttribute('aria-selected')==='true';
+        tab.id='trip-tab-'+tab.dataset.tab;tab.type='button';tab.setAttribute('role','tab');tab.setAttribute('aria-controls','trip-panel-'+tab.dataset.tab);tab.tabIndex=active?0:-1;
+        panel.id='trip-panel-'+tab.dataset.tab;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tab.id);panel.tabIndex=0;panel.hidden=!active;
+      });
+    };
+    synchronizeTabs();new MutationObserver(synchronizeTabs).observe(tabList,{childList:true});
+    tabList.addEventListener('keydown',event=>{
+      const current=event.target.closest('[data-tab]');if(!current)return;
+      const items=[...tabList.querySelectorAll('[data-tab]')];let index=items.indexOf(current);
+      if(event.key==='ArrowRight')index=(index+1)%items.length;
+      else if(event.key==='ArrowLeft')index=(index-1+items.length)%items.length;
+      else if(event.key==='Home')index=0;
+      else if(event.key==='End')index=items.length-1;
+      else return;
+      event.preventDefault();event.stopPropagation();items[index].focus({preventScroll:true});revealTab(items[index]);
+    });
     tabList.closest('section')?.classList.add('kili-tab-section');
     const safari=/\/safari(?:\.html)?\/?$/.test(location.pathname);
     const kilimanjaro=/\/kilimanjaro(?:\.html)?\/?$/.test(location.pathname);

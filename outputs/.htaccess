@@ -6,6 +6,10 @@ Options -MultiViews
     </FilesMatch>
 </IfModule>
 RewriteEngine On
+# Reject requests for backing HTML files. Internal clean-URL rewrites still work.
+# THE_REQUEST is the original browser request, so /kilimanjaro remains a 200.
+RewriteCond %{THE_REQUEST} "\s/+[^?\s]*\.html(?:[?\s/])" [NC]
+RewriteRule \.html(?:/|$) - [R=404,END,NC]
 RewriteRule ^api/booking/(session|send-code|verify-code|logout|profile|quote|create|list|remove|restore|message|confirm|verify-payment|checkout)$ api/booking/index.php [END]
 
 RewriteRule ^api/stripe/(config|request|checkout|status|webhook)$ api/stripe/index.php [END]
@@ -14,4 +18,4 @@ RewriteRule ^api/booking/.*\.php$ - [R=404,END]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(about|contact|faq|gear-help|kilimanjaro|safari|volcan-de-fuego|payments|account)/?$ $1.html [END]
+RewriteRule ^(about|contact|faq|gear-help|kilimanjaro|safari|volcan-de-fuego|payments|account|privacy-terms)/?$ $1.html [END]

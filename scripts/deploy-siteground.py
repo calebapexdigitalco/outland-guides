@@ -3,6 +3,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from urllib.request import Request, urlopen, build_opener, HTTPRedirectHandler
+from urllib.error import HTTPError
 import json
 import os
 import re
@@ -83,6 +84,9 @@ def main():
             upload = target + '.outland-upload-' + release[:12]
             commands.extend(['put ' + quote(file.as_posix()) + ' ' + quote(upload),
                              'rename ' + quote(upload) + ' ' + quote(target)])
+        # This retired, superseded price/demo script is no longer part of the site.
+        # Remove this exact known file only; never mirror-delete server-private files.
+        commands.append('-rm "assets/kilimanjaro-routes.js"')
         marker_upload = 'assets/deployment.json.outland-upload-' + release[:12]
         commands.extend(['put ' + quote(marker.as_posix()) + ' ' + quote(marker_upload),
                          'rename ' + quote(marker_upload) + ' "assets/deployment.json"', 'bye'])
@@ -128,6 +132,16 @@ def main():
             text=response.read().decode('utf-8');references=checker.References();references.feed(text)
             if response.status!=200 or references.accounts!=1 or references.account_links!=['/account'] or any(not checker.clean_page_link(url) for url in references.urls):
                 raise RuntimeError('The live navigation or clean address could not be verified: '+path)
+            if 'privacy-terms#privacy' not in text or 'name="description"' not in text or 'rel="canonical"' not in text:
+                raise RuntimeError('The live policy links or SEO metadata could not be verified: '+path)
+        try:
+            public.open(Request(PUBLIC_URL+'/'+page,headers={'User-Agent':'Outland-Deployment-Check'}),timeout=30)
+        except HTTPError as error:
+            if error.code!=404:raise RuntimeError('An old HTML address did not return 404: '+page)
+        else:raise RuntimeError('An old HTML address is still publicly served: '+page)
+    for resource in ['/robots.txt','/sitemap.xml']:
+        with public.open(PUBLIC_URL+resource,timeout=30) as response:
+            if response.status!=200:raise RuntimeError('The crawl resource could not be verified: '+resource)
     print('Published and verified https://outlandguides.com — commit ' + release[:12])
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:

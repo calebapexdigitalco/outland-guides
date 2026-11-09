@@ -58,3 +58,5 @@
  window.addEventListener('outland:account-signed-out',()=>init().catch(error=>status(error.message)));
  try{await init();}catch(e){status('Your account could not load. '+e.message);}
 })();
+
+(function(){function policy(){const form=document.getElementById("booking-form");if(form&&!form.querySelector(".policy-form-note")){const p=document.createElement("p");p.className="policy-form-note";p.innerHTML='Review our <a href="/privacy-terms#terms">Booking Terms</a>, <a href="/privacy-terms#cancellation">Cancellation Policy</a>, and <a href="/privacy-terms#privacy">Privacy Policy</a>. Dates and payment terms are confirmed before checkout.';form.append(p);}}policy();const root=document.getElementById("customer-portal");if(root)new MutationObserver(policy).observe(root,{childList:true,subtree:true});})();

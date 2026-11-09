@@ -15,6 +15,7 @@
     status.setAttribute('aria-live', 'polite');
     status.hidden = true;
     form.append(status);
+    const privacy=document.createElement("p");privacy.className="policy-form-note";privacy.innerHTML='We use your details to respond and plan your trip. Read our <a href="/privacy-terms#privacy">Privacy Policy</a> and <a href="/privacy-terms#terms">Booking Terms</a>. An inquiry does not reserve or charge for a trip.';form.append(privacy);
   }
   async function deliver(event) {
     const form = event.target;
@@ -114,7 +115,7 @@
       }
     });
     document.querySelectorAll('#inquiry-form, #contact-form').forEach(prepareForm);
-    document.querySelectorAll('[data-book-route] span:last-child').forEach(label=>label.textContent='View payment options →');
+    document.querySelectorAll('[data-book-route] > span:last-child').forEach(label=>label.textContent='View payment options →');
     document.querySelectorAll('footer').forEach(footer=>{
       if(footer.querySelector('[data-payment-link]'))return;
       footer.insertAdjacentHTML('beforeend','<div class="mx-auto mt-6 max-w-7xl border-t border-white/10 pt-5"><a href="/payments" data-payment-link class="text-xs font-black uppercase tracking-[.12em] text-summit transition hover:text-[#D68456]">Make a Payment →</a><a href="/account" class="ml-6 text-xs font-black uppercase tracking-wider text-summit">My Trips / Sign In →</a></div>');

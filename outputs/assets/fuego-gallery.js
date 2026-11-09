@@ -33,7 +33,7 @@
           <br/>mountain move.</h2></div>
           <p class="max-w-2xl self-end text-base leading-relaxed text-white/70">A few honest frames from the route: cloud forest, high camp, volcanic trail, and the moments Fuego takes over the sky. Select any image for a full-screen view.</p>
         </div>
-        <div class="fuego-gallery-grid mt-10">${photos.map((photo, index) => `<button type="button" class="fuego-gallery-card" data-fuego-photo="${index}" aria-label="Open photo: ${photo.title}"><img src="${photo.src}" alt="${photo.alt}" loading="lazy" /><span class="fuego-gallery-caption">${photo.title}<span>${photo.detail}</span></span></button>`).join('')}</div>
+        <div class="fuego-gallery-grid mt-10">${photos.map((photo, index) => `<button type="button" class="fuego-gallery-card" data-fuego-photo="${index}" aria-label="Open photo: ${photo.title}"><img ${window.OutlandImages.attributes(photo.src)} alt="${photo.alt}" /><span class="fuego-gallery-caption">${photo.title}<span>${photo.detail}</span></span></button>`).join('')}</div>
       </div>`;
     content.append(gallery);
 
@@ -42,9 +42,9 @@
         <div class="fuego-carousel-stage">
           <button type="button" class="fuego-carousel-control prev" data-carousel-direction="previous" aria-label="Previous photo"><i data-lucide="arrow-left" class="h-4 w-4"></i></button>
           <button type="button" class="fuego-carousel-control next" data-carousel-direction="next" aria-label="Next photo"><i data-lucide="arrow-right" class="h-4 w-4"></i></button>
-          <button type="button" class="block h-full w-full" data-fuego-photo="0" aria-label="Open photo: ${photos[0].title}"><img data-carousel-image src="${photos[0].src}" alt="${photos[0].alt}" /><span class="fuego-carousel-copy"><p>Field notes</p><p data-carousel-title>${photos[0].title}</p></span></button>
+          <button type="button" class="block h-full w-full" data-fuego-photo="0" aria-label="Open photo: ${photos[0].title}"><img data-carousel-image ${window.OutlandImages.attributes(photos[0].src,"(min-width: 1024px) 1024px, 100vw")} alt="${photos[0].alt}" /><span class="fuego-carousel-copy"><p>Field notes</p><p data-carousel-title>${photos[0].title}</p></span></button>
         </div>
-        <div class="fuego-carousel-thumbs" role="tablist" aria-label="Choose a Fuego field photo">${photos.map((photo, index) => `<button type="button" class="fuego-carousel-thumb${index === 0 ? ' is-active' : ''}" data-carousel-index="${index}" aria-label="View ${photo.title}" aria-selected="${index === 0}"><img src="${photo.src}" alt="" loading="lazy" /></button>`).join('')}</div>
+        <div class="fuego-carousel-thumbs" role="group" aria-label="Choose a Fuego field photo">${photos.map((photo, index) => `<button type="button" class="fuego-carousel-thumb${index === 0 ? ' is-active' : ''}" data-carousel-index="${index}" aria-label="View ${photo.title}" aria-pressed="${index === 0}"><img ${window.OutlandImages.attributes(photo.src,"100px")} alt="" /></button>`).join('')}</div>
       </section>`);
 
     const lightbox = document.createElement('div');
@@ -64,14 +64,14 @@
     const selectPhoto = index => {
       activeIndex = (index + photos.length) % photos.length;
       const photo = photos[activeIndex];
-      carouselImage.src = photo.src;
+      window.OutlandImages.set(carouselImage, photo.src);
       carouselImage.alt = photo.alt;
       carouselTitle.textContent = photo.title;
       stageButton.dataset.fuegoPhoto = activeIndex;
       thumbs.forEach((thumb, thumbIndex) => {
         const isActive = thumbIndex === activeIndex;
         thumb.classList.toggle('is-active', isActive);
-        thumb.setAttribute('aria-selected', String(isActive));
+        thumb.setAttribute('aria-pressed', String(isActive));
       });
     };
     const openLightbox = index => {

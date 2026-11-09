@@ -101,3 +101,12 @@ Pricing is calculated in `outputs/api/booking/catalog.php`. The provided group t
 Paid Checkout Sessions return to `/account` with the booking reference. Stripe webhook processing records successful payments and cumulative refunds. One active booking checkout is reused; changing payment options expires the previous open session. Refunds are managed in Stripe, not from the portal. Messages are read when the booking list loads or is refreshed; this version does not send email notifications for new messages or date approvals.
 
 The older private payment-link flow remains available for previously issued links. The default public page uses the trip selector and account flow.
+# Public URLs, search metadata, and shared policies
+
+The public site uses `/kilimanjaro`, `/safari`, `/privacy-terms`, and the other clean page addresses. HTML files remain the internal backing files. `.htaccess` rejects explicit browser requests for `*.html` with HTTP 404, without redirects; internal clean-address rewrites continue to return HTTP 200. Do not block the old HTML URLs in robots.txt, because crawlers must be able to observe their 404 response.
+
+Run `python scripts/build-seo.py` after adding or updating the metadata catalog. It writes unique titles/descriptions, canonical URLs, social metadata, organization/site/page structured data, robots.txt, and sitemap.xml. The sitemap contains public information pages only. Account and payments pages use `noindex,follow` and are intentionally crawlable so crawlers can read that instruction.
+
+The shared footer source is `templates/site-footer.html`; synchronize it with `python scripts/sync-footer.py`. Policy body content is maintained in `templates/privacy-terms-main.html` and the published `outputs/privacy-terms.html`. Keep any policy changes consistent with accepted booking agreements and the actual data flow; a public policy does not replace a separately reviewed activity waiver or legal advice.
+
+Responsive gallery assets are generated with Pillow by `python scripts/optimize-gallery.py`. Preserve the original files for lightbox expansion. Gallery cards and carousels use `image-assets.js`, responsive WebP variants, and lazy loading. Regenerate the variants if a source photo changes. The retired `assets/kilimanjaro-routes.js` is explicitly removed on deployment because it contained obsolete routes/prices and a booking demonstration.

@@ -73,6 +73,6 @@ def main():
     component=TEMPLATE.read_text(encoding='utf-8').strip()
     for path in sorted((PROJECT/'outputs').glob('*.html')):
         path.write_text(synchronize(path.read_text(encoding='utf-8'),component),encoding='utf-8')
-    print('Permanent My Trips navigation synchronized across all ten pages.')
+    print('Permanent My Trips navigation synchronized across all pages.')
 
 if __name__=='__main__':main()

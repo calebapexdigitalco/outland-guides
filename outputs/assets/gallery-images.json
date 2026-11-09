@@ -1,0 +1,434 @@
+{
+  "/assets/fuego-gallery-antigua-mural.jpg": {
+    "width": 8064,
+    "height": 6048,
+    "original_bytes": 13094877,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-antigua-mural-240.webp",
+        "width": 240,
+        "bytes": 9942
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-antigua-mural-480.webp",
+        "width": 480,
+        "bytes": 34588
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-antigua-mural-960.webp",
+        "width": 960,
+        "bytes": 134940
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-antigua-mural-1440.webp",
+        "width": 1440,
+        "bytes": 310904
+      }
+    ]
+  },
+  "/assets/fuego-gallery-camp.jpg": {
+    "width": 6048,
+    "height": 8064,
+    "original_bytes": 6147541,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-camp-240.webp",
+        "width": 240,
+        "bytes": 12110
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-camp-480.webp",
+        "width": 480,
+        "bytes": 32840
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-camp-960.webp",
+        "width": 960,
+        "bytes": 91210
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-camp-1440.webp",
+        "width": 1440,
+        "bytes": 171096
+      }
+    ]
+  },
+  "/assets/fuego-gallery-daytime-fuego.jpg": {
+    "width": 3024,
+    "height": 4032,
+    "original_bytes": 3126443,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-daytime-fuego-240.webp",
+        "width": 240,
+        "bytes": 9904
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-daytime-fuego-480.webp",
+        "width": 480,
+        "bytes": 34994
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-daytime-fuego-960.webp",
+        "width": 960,
+        "bytes": 143538
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-daytime-fuego-1440.webp",
+        "width": 1440,
+        "bytes": 315382
+      }
+    ]
+  },
+  "/assets/fuego-gallery-lava-long-exposure.jpg": {
+    "width": 3744,
+    "height": 2496,
+    "original_bytes": 5711502,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-lava-long-exposure-240.webp",
+        "width": 240,
+        "bytes": 7808
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-lava-long-exposure-480.webp",
+        "width": 480,
+        "bytes": 33482
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-lava-long-exposure-960.webp",
+        "width": 960,
+        "bytes": 127878
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-lava-long-exposure-1440.webp",
+        "width": 1440,
+        "bytes": 243300
+      }
+    ]
+  },
+  "/assets/fuego-gallery-misty-hike.jpg": {
+    "width": 6048,
+    "height": 8064,
+    "original_bytes": 6990726,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-misty-hike-240.webp",
+        "width": 240,
+        "bytes": 8430
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-misty-hike-480.webp",
+        "width": 480,
+        "bytes": 31548
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-misty-hike-960.webp",
+        "width": 960,
+        "bytes": 135678
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-misty-hike-1440.webp",
+        "width": 1440,
+        "bytes": 291336
+      }
+    ]
+  },
+  "/assets/fuego-gallery-night-eruption.jpeg": {
+    "width": 3024,
+    "height": 4032,
+    "original_bytes": 980285,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-night-eruption-240.webp",
+        "width": 240,
+        "bytes": 2398
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-night-eruption-480.webp",
+        "width": 480,
+        "bytes": 6312
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-night-eruption-960.webp",
+        "width": 960,
+        "bytes": 20124
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-night-eruption-1440.webp",
+        "width": 1440,
+        "bytes": 37948
+      }
+    ]
+  },
+  "/assets/fuego-gallery-pine-sunrise.jpg": {
+    "width": 6048,
+    "height": 8064,
+    "original_bytes": 9480339,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-pine-sunrise-240.webp",
+        "width": 240,
+        "bytes": 12022
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-pine-sunrise-480.webp",
+        "width": 480,
+        "bytes": 38300
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-pine-sunrise-960.webp",
+        "width": 960,
+        "bytes": 135768
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-pine-sunrise-1440.webp",
+        "width": 1440,
+        "bytes": 278116
+      }
+    ]
+  },
+  "/assets/fuego-gallery-trail-selfie.jpg": {
+    "width": 6048,
+    "height": 8064,
+    "original_bytes": 6202316,
+    "variants": [
+      {
+        "src": "/assets/optimized/fuego-gallery-trail-selfie-240.webp",
+        "width": 240,
+        "bytes": 11238
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-trail-selfie-480.webp",
+        "width": 480,
+        "bytes": 28830
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-trail-selfie-960.webp",
+        "width": 960,
+        "bytes": 82842
+      },
+      {
+        "src": "/assets/optimized/fuego-gallery-trail-selfie-1440.webp",
+        "width": 1440,
+        "bytes": 161442
+      }
+    ]
+  },
+  "/assets/kili-gallery-camp.png": {
+    "width": 1254,
+    "height": 1254,
+    "original_bytes": 2630733,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-camp-240.webp",
+        "width": 240,
+        "bytes": 14126
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-camp-480.webp",
+        "width": 480,
+        "bytes": 46754
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-camp-960.webp",
+        "width": 960,
+        "bytes": 146110
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-camp-1254.webp",
+        "width": 1254,
+        "bytes": 208060
+      }
+    ]
+  },
+  "/assets/kili-gallery-hikers.png": {
+    "width": 1440,
+    "height": 1920,
+    "original_bytes": 3490279,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-hikers-240.webp",
+        "width": 240,
+        "bytes": 17002
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-hikers-480.webp",
+        "width": 480,
+        "bytes": 64260
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-hikers-960.webp",
+        "width": 960,
+        "bytes": 210502
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-hikers-1440.webp",
+        "width": 1440,
+        "bytes": 368470
+      }
+    ]
+  },
+  "/assets/kili-gallery-karanga.png": {
+    "width": 1440,
+    "height": 1440,
+    "original_bytes": 2945706,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-karanga-240.webp",
+        "width": 240,
+        "bytes": 13344
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-karanga-480.webp",
+        "width": 480,
+        "bytes": 49606
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-karanga-960.webp",
+        "width": 960,
+        "bytes": 175428
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-karanga-1440.webp",
+        "width": 1440,
+        "bytes": 334914
+      }
+    ]
+  },
+  "/assets/kili-gallery-little-meru-family.png": {
+    "width": 1086,
+    "height": 1448,
+    "original_bytes": 2387801,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-family-240.webp",
+        "width": 240,
+        "bytes": 13526
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-family-480.webp",
+        "width": 480,
+        "bytes": 42748
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-family-960.webp",
+        "width": 960,
+        "bytes": 122776
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-family-1086.webp",
+        "width": 1086,
+        "bytes": 147034
+      }
+    ]
+  },
+  "/assets/kili-gallery-little-meru-group.png": {
+    "width": 1254,
+    "height": 1254,
+    "original_bytes": 2381923,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-group-240.webp",
+        "width": 240,
+        "bytes": 8634
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-group-480.webp",
+        "width": 480,
+        "bytes": 27928
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-group-960.webp",
+        "width": 960,
+        "bytes": 92540
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-group-1254.webp",
+        "width": 1254,
+        "bytes": 138438
+      }
+    ]
+  },
+  "/assets/kili-gallery-little-meru-sunrise.png": {
+    "width": 1440,
+    "height": 1920,
+    "original_bytes": 2521978,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-sunrise-240.webp",
+        "width": 240,
+        "bytes": 10976
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-sunrise-480.webp",
+        "width": 480,
+        "bytes": 33936
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-sunrise-960.webp",
+        "width": 960,
+        "bytes": 97382
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-little-meru-sunrise-1440.webp",
+        "width": 1440,
+        "bytes": 168644
+      }
+    ]
+  },
+  "/assets/kili-gallery-uhuru.png": {
+    "width": 1254,
+    "height": 1254,
+    "original_bytes": 2389717,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-gallery-uhuru-240.webp",
+        "width": 240,
+        "bytes": 12296
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-uhuru-480.webp",
+        "width": 480,
+        "bytes": 39276
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-uhuru-960.webp",
+        "width": 960,
+        "bytes": 108080
+      },
+      {
+        "src": "/assets/optimized/kili-gallery-uhuru-1254.webp",
+        "width": 1254,
+        "bytes": 146918
+      }
+    ]
+  },
+  "/assets/kili-guide-renga.png": {
+    "width": 1254,
+    "height": 1254,
+    "original_bytes": 2467316,
+    "variants": [
+      {
+        "src": "/assets/optimized/kili-guide-renga-240.webp",
+        "width": 240,
+        "bytes": 12598
+      },
+      {
+        "src": "/assets/optimized/kili-guide-renga-480.webp",
+        "width": 480,
+        "bytes": 37972
+      },
+      {
+        "src": "/assets/optimized/kili-guide-renga-960.webp",
+        "width": 960,
+        "bytes": 101906
+      },
+      {
+        "src": "/assets/optimized/kili-guide-renga-1254.webp",
+        "width": 1254,
+        "bytes": 137824
+      }
+    ]
+  }
+}

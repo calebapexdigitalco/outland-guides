@@ -32,3 +32,5 @@
 .kili-tab-list .tab[data-tab="pricing"]:hover,.kili-tab-list .tab[data-tab="pricing"]:focus-visible{background:#BC6838!important;box-shadow:0 0 24px #A5592Ea0}
 .kili-tab-list .tab[data-tab="pricing"][aria-selected="true"]{outline:2px solid #f2c8a9;outline-offset:-3px}
 @media(min-width:640px){.kilimanjaro-hero>img{top:6rem!important;height:calc(100% - 6rem)!important;object-position:50% 0%!important}.kilimanjaro-hero>img+div{background:linear-gradient(90deg,rgba(26,26,26,.65),rgba(26,26,26,.12) 72%),linear-gradient(0deg,rgba(26,26,26,.9),transparent 70%)!important}}
+
+[role="tab"]:focus-visible{outline:2px solid #e4a579;outline-offset:-4px}[role="tabpanel"]:focus-visible{outline:2px solid #a5592e;outline-offset:6px}

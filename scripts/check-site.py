@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1] / 'outputs'
 PAGES = {'index.html', 'about.html', 'contact.html', 'faq.html', 'gear-help.html',
-         'kilimanjaro.html', 'safari.html', 'volcan-de-fuego.html', 'payments.html', 'account.html'}
+         'kilimanjaro.html', 'safari.html', 'volcan-de-fuego.html', 'payments.html', 'account.html', 'privacy-terms.html'}
 EXTENSIONS = {'.html', '.css', '.js', '.json', '.xml', '.txt', '.jpg', '.jpeg',
               '.png', '.svg', '.webm', '.mp4', '.woff', '.woff2', '.ico', '.avif', '.webp'}
 SECRET = re.compile(r'(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{20,}|whsec_[A-Za-z0-9]{20,}|-----BEGIN (?:OPENSSH |RSA |EC )?PRIVATE KEY-----')
