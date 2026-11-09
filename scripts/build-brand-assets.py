@@ -36,11 +36,12 @@ def main():
         'safari': ('wildlife-safari-expedition.png', ['THE WILD.', 'WITH LOCAL EYES.'], 'NGORONGORO & SERENGETI / TANZANIA'),
     }
     for name,(photo,lines,kicker) in cards.items():
-        card = ImageOps.fit(Image.open(ASSETS/photo).convert('RGB'), (1200,630), centering=(.5,.3)).convert('RGBA')
+        card = ImageOps.fit(ImageOps.exif_transpose(Image.open(ASSETS/photo)).convert('RGB'), (1200,630), centering=(.5,.3)).convert('RGBA')
         shade = Image.new('RGBA',card.size)
         px=shade.load()
         for x in range(1200):
             alpha=int(235 - 145*(x/1199)**1.7)
+            if name == 'fuego': alpha=int(235 - 220*min(1,x/900)**.7)
             for y in range(630): px[x,y]=(13,16,17,min(255,alpha+int(25*y/630)))
         card=Image.alpha_composite(card,shade)
         card.alpha_composite(wordmark,(64,48))
