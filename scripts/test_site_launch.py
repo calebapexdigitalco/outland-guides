@@ -12,6 +12,22 @@ class Tags(HTMLParser):
     def handle_starttag(self,tag,attrs):self.nodes.append((tag,dict(attrs)))
 
 class LaunchTests(unittest.TestCase):
+    def test_brand_icons_and_share_cards_are_declared_without_javascript(self):
+        for page in ROOT.glob('*.html'):
+            nodes=Tags(page.read_text(encoding='utf-8')).nodes
+            meta={a.get('property',a.get('name')):a.get('content') for t,a in nodes if t=='meta'}
+            self.assertEqual(meta['og:image:width'],'1200')
+            self.assertEqual(meta['og:image:height'],'630')
+            self.assertEqual(meta['og:image:type'],'image/jpeg')
+            self.assertEqual(meta['og:image'],meta['twitter:image'])
+            self.assertEqual(meta['og:image'],meta['og:image:secure_url'])
+            self.assertTrue(meta['og:image:alt'])
+            self.assertTrue((ROOT/meta['og:image'].replace('https://outlandguides.com/','')).is_file())
+            links={a.get('rel'):a.get('href') for t,a in nodes if t=='link'}
+            self.assertEqual(links['apple-touch-icon'],'/apple-touch-icon.png?v=arrow-1')
+            self.assertIn('/assets/outland-arrow-',links['icon'])
+        self.assertTrue((ROOT/'favicon.ico').is_file())
+
     def test_clean_canonicals_and_unique_search_metadata(self):
         titles=[];descriptions=[]
         footer=(ROOT.parent/'templates/site-footer.html').read_text(encoding='utf-8').strip()
