@@ -17,6 +17,7 @@ class NavigationTests(unittest.TestCase):
         for path in checker.ROOT.glob('*.html'):
             text=path.read_text(encoding='utf-8')
             self.assertEqual(text.count(component),1,path.name)
+            self.assertEqual(sum(n['attrs'].get('id')=='menu-toggle' for n in sync.Elements(text).nodes),1,path.name)
             self.assertEqual(sync.synchronize(text,component),text,path.name)
     def test_legacy_page_urls_fail_checks_but_external_documents_do_not(self):
         self.assertFalse(checker.clean_page_link('gear-help.html#gear'))

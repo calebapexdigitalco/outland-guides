@@ -73,6 +73,7 @@
       const match = options.find(option => option.value === requested) || options.find(option => requested.includes(option.value) || option.value.includes(requested));
       if (match) selected.value = match.value;
     }
+    if (trigger.dataset.routeFinderSummary) modal.querySelector('[name="notes"]').value = trigger.dataset.routeFinderSummary;
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     document.body.classList.add('modal-open');

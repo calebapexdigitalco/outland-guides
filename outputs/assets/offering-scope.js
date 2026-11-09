@@ -80,8 +80,8 @@
     if(!document.querySelector('script[src="/assets/kilimanjaro-mobile-tabs.js?v=routes-six-1"]')){const script=document.createElement('script');script.src='/assets/kilimanjaro-mobile-tabs.js?v=routes-six-1';document.body.append(script)}
   }
   function loadSharedInquiry(){
-    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=nav-20261108"]'))return;
-    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=nav-20261108';document.body.append(script);
+    if(document.querySelector('script[src="/assets/shared-inquiry.js?v=finder-1"]'))return;
+    const script=document.createElement('script');script.src='/assets/shared-inquiry.js?v=finder-1';document.body.append(script);
   }
   function linkSafariCard(){
     if(!/\/(index\.html)?$/.test(location.pathname))return;

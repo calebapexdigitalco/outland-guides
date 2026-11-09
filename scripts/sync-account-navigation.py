@@ -58,6 +58,12 @@ def synchronize(text,component):
     if 'mobile-book-cta' not in classes:classes.append('mobile-book-cta')
     opening=re.sub(r'class="[^"]*"','class="'+' '.join(classes)+'"',opening,count=1)
     text=text[:book['start']]+opening+text[book['open_end']:]
+    nodes=Elements(text).nodes
+    toggles=[n for n in nodes if n['attrs'].get('id')=='menu-toggle']
+    if len(toggles)>1:
+        keep=next((n for n in toggles if any('nav-actions' in p['attrs'].get('class','').split() for p in n['parents'])),toggles[0])
+        for duplicate in sorted((n for n in toggles if n is not keep),key=lambda n:n['start'],reverse=True):
+            text=text[:duplicate['start']]+text[duplicate['end']:]
     assets=f'<link rel="stylesheet" href="/assets/account-navigation.css?v={VERSION}" />\n<script defer src="/assets/account-navigation.js?v={VERSION}"></script>'
     text=re.sub(r'<link\b[^>]*href="/assets/account-navigation\.css[^" ]*"[^>]*>\s*','',text)
     text=re.sub(r'<script\b[^>]*src="/assets/account-navigation\.js[^" ]*"[^>]*></script>\s*','',text)
