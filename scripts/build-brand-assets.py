@@ -18,12 +18,14 @@ def main():
     ImageDraw.Draw(mask).polygon([(578, 0), (1110, 1085), (740, 910), (840, 1200), (290, 1200), (410, 910), (0, 1090)], fill=255)
     logo.putalpha(ImageChops.multiply(logo.getchannel('A'), mask))
     arrow = logo.crop(logo.getbbox())
-    icon = Image.new('RGBA', (512, 512), CREAM)
+    icon = Image.new('RGBA', (512, 512), (0, 0, 0, 0))
     mark = ImageOps.contain(arrow, (458, 458), Image.Resampling.LANCZOS)
     icon.alpha_composite(mark, ((512-mark.width)//2, (512-mark.height)//2))
     for size in (32, 192, 512):
         icon.resize((size,size), Image.Resampling.LANCZOS).save(ASSETS / f'outland-arrow-{size}.png', optimize=True)
-    icon.resize((180,180), Image.Resampling.LANCZOS).save(ROOT / 'apple-touch-icon.png', optimize=True)
+    touch_icon = Image.new('RGBA', (512, 512), CREAM)
+    touch_icon.alpha_composite(icon)
+    touch_icon.resize((180,180), Image.Resampling.LANCZOS).save(ROOT / 'apple-touch-icon.png', optimize=True)
     icon.save(ROOT / 'favicon.ico', sizes=[(16,16),(32,32),(48,48),(64,64)])
 
     wordmark = Image.open(ASSETS / 'outland-guides-text-only.png').convert('RGBA')
