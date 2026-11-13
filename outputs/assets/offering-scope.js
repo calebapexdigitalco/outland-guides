@@ -70,7 +70,7 @@
   function addHomeCta(){
     if(!/\/(index\.html)?$/.test(location.pathname)||document.getElementById('custom-expedition-cta'))return;
     const faq=document.getElementById('faq');if(!faq)return;
-    faq.insertAdjacentHTML('afterend','<aside id="custom-expedition-cta" class="mt-10 overflow-hidden rounded-2xl border border-summit/35 bg-[#2A211C] p-7 shadow-ember sm:p-9"><div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-center"><div><p class="text-xs font-black uppercase tracking-[.18em] text-summit">Your objective, your pace</p><h3 class="mt-3 font-display text-3xl font-black uppercase leading-none text-white">Need a custom expedition?</h3><p class="mt-3 max-w-xl text-sm leading-relaxed text-white/65">Tell us your rough dates, experience, and the mountain that has your attention. We will help you find the right local team and next step.</p></div><button type="button" data-custom-inquiry class="shrink-0 rounded-full bg-summit px-6 py-3.5 text-xs font-black uppercase tracking-[.12em] text-white transition hover:bg-[#7A4323]">Request more information</button></div></aside>');
+    faq.insertAdjacentHTML('afterend','<aside id="custom-expedition-cta" class="mt-10 overflow-hidden rounded-2xl border border-summit/35 bg-[#2A211C] p-7 shadow-ember sm:p-9"><div class="flex flex-col justify-between gap-6 sm:flex-row sm:items-center"><div><h3 class="font-display text-3xl font-black uppercase leading-none text-white">Talk to our team.</h3><p class="mt-3 max-w-xl text-sm leading-relaxed text-white/65">Submit your information, give us a few hours and we will get back to you. We won&#39;t sell your data.</p></div><button type="button" data-custom-inquiry class="shrink-0 rounded-full bg-summit px-6 py-3.5 text-xs font-black uppercase tracking-[.12em] text-white transition hover:bg-[#7A4323]">Request more information</button></div></aside>');
     document.querySelector('[data-custom-inquiry]')?.addEventListener('click',()=>{const modal=document.getElementById('inquiry-modal');if(!modal)return;modal.classList.remove('hidden');modal.classList.add('flex');document.body.classList.add('modal-open')});
   }
   function loadKilimanjaroMobileSupport(){
@@ -122,7 +122,7 @@
   }
   function updateFuegoCard(){
     if(!/\/(index\.html)?$/.test(location.pathname))return;
-    const card=document.querySelectorAll('.expedition-card')[2];
+    const card=[...document.querySelectorAll('.expedition-card')].find(item=>item.querySelector('a[href="/volcan-de-fuego"]'));
     const image=card?.querySelector('.card-image');
     if(image)image.style.backgroundImage="url('/assets/volcan-de-fuego-cone-eruption.png')";
   }
