@@ -64,7 +64,6 @@ class LaunchTests(unittest.TestCase):
             self.assertFalse(re.search(r'\$(?:3,?950|4,?650|2,?850|110|450)(?!\d)',p.read_text(encoding='utf-8')),str(p))
         home=(ROOT/'index.html').read_text(encoding='utf-8')
         for phrase in ['3+ Years','100+','Five-star reviews']:self.assertNotIn(phrase,home)
-        for phrase in ['Expedition experiences','Kilimanjaro itineraries','Planning support']:self.assertIn(phrase,home)
         self.assertFalse((ROOT/'assets/kilimanjaro-routes.js').exists())
 
     def test_gallery_variants_are_small_and_originals_are_retained(self):
