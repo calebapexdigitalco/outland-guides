@@ -116,6 +116,6 @@
     lucide.createIcons();const menuToggle=document.getElementById('menu-toggle'),mobileMenu=document.getElementById('mobile-menu');menuToggle.addEventListener('click',()=>{const open=!mobileMenu.classList.contains('hidden');mobileMenu.classList.toggle('hidden',open);menuToggle.setAttribute('aria-expanded',String(!open))});const nav=document.getElementById('site-nav');window.addEventListener('scroll',()=>nav.classList.toggle('nav-scrolled',window.scrollY>20),{passive:true});const tabs=[...document.querySelectorAll('[data-gear-tab]')],panels=[...document.querySelectorAll('[data-gear-panel]')],tabbar=document.querySelector('[role="tablist"]');tabs.forEach(tab=>tab.addEventListener('click',()=>{tabs.forEach(item=>item.setAttribute('aria-selected','false'));panels.forEach(panel=>{panel.classList.add('hidden');panel.classList.remove('gear-panel')});tab.setAttribute('aria-selected','true');const panel=document.querySelector(`[data-gear-panel="${tab.dataset.gearTab}"]`);panel.classList.remove('hidden');panel.classList.add('gear-panel');const top=tabbar.getBoundingClientRect().top+window.scrollY-80;window.scrollTo({top,behavior:'smooth'});lucide.createIcons()}));
   </script>
   <script>const gearHeaderLogo=document.querySelector('#site-nav img[alt="Outland Guides"]');if(gearHeaderLogo){gearHeaderLogo.src='/assets/OutlandGuides - 21 (Horizontal).png';gearHeaderLogo.className='h-12 w-auto'}</script>
-  <script src="/assets/offering-scope.js?v=launch-20261109"></script>
+  <script src="/assets/offering-scope.js?v=home-cards-20261113"></script>
 </body>
 </html>
